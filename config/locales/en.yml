@@ -1,0 +1,4 @@
+en:
+  devise:
+    failure:
+      invalid_token: "Invalid email or token"

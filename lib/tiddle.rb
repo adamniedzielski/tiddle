@@ -1,5 +1,6 @@
 require "tiddle/version"
 require "tiddle/strategy"
+require "tiddle/rails"
 
 module Tiddle
 
