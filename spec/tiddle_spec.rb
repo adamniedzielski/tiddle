@@ -1,10 +1,10 @@
 describe Tiddle do
 
-  describe "create_and_return_token" do
+  before do
+    @user = User.create!(email: "test@example.com", password: "12345678")
+  end
 
-    before do
-      @user = User.create!(email: "test@example.com", password: "12345678")
-    end
+  describe "create_and_return_token" do
 
     it "returns string with token" do
       result = Tiddle.create_and_return_token(@user)
@@ -15,6 +15,20 @@ describe Tiddle do
       expect do
         Tiddle.create_and_return_token(@user)
       end.to change { @user.authentication_tokens.count }.by(1)
+    end
+  end
+
+  describe "expire_token" do
+
+    before do
+      @user.authentication_tokens.create!(body: "fireball")
+      @request = instance_double("request", headers: { "X-USER-TOKEN" => "fireball" })
+    end
+
+    it "deletes token from the database" do
+      expect do
+        Tiddle.expire_token(@user, @request)
+      end.to change { @user.authentication_tokens.count }.by(-1)
     end
   end
 end
