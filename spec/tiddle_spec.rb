@@ -16,6 +16,11 @@ describe Tiddle do
         Tiddle.create_and_return_token(@user)
       end.to change { @user.authentication_tokens.count }.by(1)
     end
+
+    it "sets last_used_at field" do
+      Tiddle.create_and_return_token(@user)
+      expect(@user.authentication_tokens.last.last_used_at).to be_within(1).of(DateTime.current)
+    end
   end
 
   describe "expire_token" do
@@ -29,6 +34,29 @@ describe Tiddle do
       expect do
         Tiddle.expire_token(@user, @request)
       end.to change { @user.authentication_tokens.count }.by(-1)
+    end
+  end
+
+  describe "purge_old_tokens" do
+
+    before do
+      Tiddle.create_and_return_token(@user)
+      @old = @user.authentication_tokens.last
+      @old.update_attribute(:last_used_at, 2.hours.ago)
+
+      Tiddle.create_and_return_token(@user)
+      @new = @user.authentication_tokens.last
+      @new.update_attribute(:last_used_at, 10.minutes.ago)
+
+      Tiddle::MAXIMUM_TOKENS_PER_USER = 1
+    end
+
+    it "deletes old tokens which are over the limit" do
+      expect do
+        Tiddle.purge_old_tokens(@user)
+      end.to change { @user.authentication_tokens.count }.from(2).to(1)
+
+      expect(@user.authentication_tokens.last).to eq @new
     end
   end
 end

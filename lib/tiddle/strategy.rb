@@ -11,7 +11,10 @@ module Devise
         return fail(:invalid_token) unless resource
 
         resource.authentication_tokens.each do |token|
-          return success!(resource) if Devise.secure_compare(token.body, token_from_headers)
+          if Devise.secure_compare(token.body, token_from_headers)
+            touch_token(token)
+            return success!(resource)
+          end
         end
 
         fail(:invalid_token)
@@ -37,6 +40,10 @@ module Devise
 
         def model_name
           mapping.to.model_name.to_s.underscore.upcase
+        end
+
+        def touch_token(token)
+          token.update_attribute(:last_used_at, DateTime.current) if token.last_used_at < 1.hour.ago
         end
     end
   end

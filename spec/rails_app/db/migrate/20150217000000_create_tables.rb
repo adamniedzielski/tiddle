@@ -26,6 +26,7 @@ class CreateTables < ActiveRecord::Migration
   create_table :authentication_tokens do |t|
     t.string :body, null: false
     t.references :user, index: true, null: false
+    t.datetime :last_used_at, null: false
 
     t.timestamps null: false
   end
