@@ -21,8 +21,8 @@ describe Tiddle do
   describe "expire_token" do
 
     before do
-      @user.authentication_tokens.create!(body: "fireball")
-      @request = instance_double("request", headers: { "X-USER-TOKEN" => "fireball" })
+      token = Tiddle.create_and_return_token(@user)
+      @request = instance_double("request", headers: { "X-USER-TOKEN" => token })
     end
 
     it "deletes token from the database" do
