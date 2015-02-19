@@ -47,13 +47,11 @@ describe Tiddle do
       Tiddle.create_and_return_token(@user)
       @new = @user.authentication_tokens.last
       @new.update_attribute(:last_used_at, 10.minutes.ago)
-
-      Tiddle::MAXIMUM_TOKENS_PER_USER = 1
     end
 
     it "deletes old tokens which are over the limit" do
       expect do
-        Tiddle.purge_old_tokens(@user)
+        Tiddle::TokenIssuer.new(1).purge_old_tokens(@user)
       end.to change { @user.authentication_tokens.count }.from(2).to(1)
 
       expect(@user.authentication_tokens.last).to eq @new
