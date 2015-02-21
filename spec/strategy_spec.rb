@@ -2,7 +2,7 @@ describe "Authentication using Tiddle strategy", type: :request do
 
   before do
     @user = User.create!(email: "test@example.com", password: "12345678")
-    @token = Tiddle.create_and_return_token(@user)
+    @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
   end
 
   context "with valid email and token" do

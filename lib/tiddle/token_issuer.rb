@@ -10,8 +10,14 @@ module Tiddle
       self.maximum_tokens_per_user = maximum_tokens_per_user
     end
 
-    def create_and_return_token(resource)
-      resource.authentication_tokens.create!(body: Devise.friendly_token, last_used_at: DateTime.current).body
+    def create_and_return_token(resource, request)
+      token = resource.authentication_tokens.
+        create! body: generate_token,
+                last_used_at: DateTime.current,
+                ip_address: request.remote_ip,
+                user_agent: request.user_agent
+
+      token.body
     end
 
     def expire_token(resource, request)
@@ -24,5 +30,9 @@ module Tiddle
 
     private
       attr_accessor :maximum_tokens_per_user
+
+      def generate_token
+        Devise.friendly_token
+      end
   end
 end

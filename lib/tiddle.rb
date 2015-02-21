@@ -5,8 +5,8 @@ require "tiddle/token_issuer"
 
 module Tiddle
 
-  def self.create_and_return_token(resource)
-    TokenIssuer.build.create_and_return_token(resource)
+  def self.create_and_return_token(resource, request)
+    TokenIssuer.build.create_and_return_token(resource, request)
   end
 
   def self.expire_token(resource, request)

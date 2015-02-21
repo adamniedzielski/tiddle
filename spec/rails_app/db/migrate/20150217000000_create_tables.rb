@@ -27,6 +27,8 @@ class CreateTables < ActiveRecord::Migration
     t.string :body, null: false
     t.references :user, index: true, null: false
     t.datetime :last_used_at, null: false
+    t.string :ip_address
+    t.string :user_agent
 
     t.timestamps null: false
   end
