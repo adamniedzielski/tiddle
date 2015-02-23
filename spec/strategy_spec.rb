@@ -40,6 +40,14 @@ describe "Authentication using Tiddle strategy", type: :request do
         end
       end
     end
+
+    context "when email contains uppercase letters" do
+
+      it "converts email to lower case and authenticates user" do
+        get secrets_path, {}, { "X-USER-EMAIL" => "TEST@example.com", "X-USER-TOKEN" => @token }
+        expect(response.status).to eq 200
+      end
+    end
   end
 
   context "with invalid email and valid token" do

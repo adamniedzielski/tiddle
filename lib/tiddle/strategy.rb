@@ -7,7 +7,7 @@ module Devise
       def authenticate!
         env["devise.skip_trackable"] = true
 
-        resource = mapping.to.where(email: email_from_headers).first
+        resource = mapping.to.find_for_authentication(email: email_from_headers)
         return fail(:invalid_token) unless resource
 
         resource.authentication_tokens.each do |token|
