@@ -1,5 +1,7 @@
 # Tiddle
 
+[![Build Status](https://travis-ci.org/adamniedzielski/tiddle.svg?branch=master)](https://travis-ci.org/adamniedzielski/tiddle)
+
 Tiddle provides Devise strategy for token authentication in API-only Ruby on Rails applications. Its main feature is **support for multiple tokens per user**.
 
 Tiddle is lightweight and non-configurable. It does what it has to do and leaves some manual implementation to you.
