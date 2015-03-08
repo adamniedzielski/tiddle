@@ -9,15 +9,13 @@ Tiddle is lightweight and non-configurable. It does what it has to do and leaves
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'tiddle', github: 'adamniedzielski/tiddle'
+gem 'tiddle'
 ```
 
 And then execute:
 
     $ bundle
 
-
-There is no gem released yet.
 
 ## Usage
 
@@ -34,7 +32,7 @@ end
 2) Generate the model which stores authentication tokens. The model name is not important, but the Devise-enabled model should have association called ```authentication_tokens```.
 
 ```
-rails g model AuthenticationToken body:string user:references
+rails g model AuthenticationToken body:string user:references last_used_at:datetime ip_address:string user_agent:string
 ```
 
 ```ruby
@@ -43,7 +41,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-```body``` field is required.
+```body```, ```last_used_at```, ```ip_address``` and ```user_agent``` fields are required.
 
 3) Customize ```Devise::SessionsController```. You need to create and return token in ```#create``` and expire the token in ```#destroy```.
 
