@@ -50,7 +50,7 @@ class Users::SessionsController < Devise::SessionsController
 
   def create
     [...]
-    token = Tiddle.create_and_return_token(resource)
+    token = Tiddle.create_and_return_token(resource, request)
     render json: { authentication_token: token }
   end
 
