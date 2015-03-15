@@ -1,0 +1,23 @@
+AllCops:
+  Include:
+    - 'lib'
+    - 'spec'
+  Exclude:
+    - 'spec/rails_app/**/*'
+    - 'spec/spec_helper.rb'
+Style/StringLiterals:
+  Enabled: false
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
+Style/BracesAroundHashParameters:
+  EnforcedStyle: context_dependent
+Style/Documentation:
+  Enabled: false
+Style/EmptyLinesAroundClassBody:
+  Enabled: false
+Style/IndentationConsistency:
+  Enabled: false
+Style/EmptyLinesAroundModuleBody:
+  Enabled: false
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
