@@ -21,7 +21,7 @@ module Devise
       end
 
       def valid?
-        email_from_headers.present? && token_from_headers.present?        
+        email_from_headers.present? && token_from_headers.present?
       end
 
       def store?

@@ -18,7 +18,7 @@ module Tiddle
   end
 end
 
-Devise::add_module  :token_authenticatable,
-                    model: 'tiddle/model',
-                    strategy: true,
-                    no_input: true
+Devise.add_module :token_authenticatable,
+                  model: 'tiddle/model',
+                  strategy: true,
+                  no_input: true

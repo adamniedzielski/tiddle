@@ -8,7 +8,8 @@ describe "Authentication using Tiddle strategy", type: :request do
   context "with valid email and token" do
 
     it "allows to access endpoints which require authentication" do
-      get secrets_path, {}, { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
+      get secrets_path, {},
+          { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
       expect(response.status).to eq 200
     end
 
@@ -17,12 +18,14 @@ describe "Authentication using Tiddle strategy", type: :request do
       context "when token was last used more than hour ago" do
 
         before do
-          @user.authentication_tokens.last.update_attribute(:last_used_at, 2.hours.ago)
+          @user.authentication_tokens.last
+            .update_attribute(:last_used_at, 2.hours.ago)
         end
 
         it "updates last_used_at field" do
           expect do
-            get secrets_path, {}, { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
+            get secrets_path, {},
+                { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
           end.to change { @user.authentication_tokens.last.last_used_at }
         end
       end
@@ -35,7 +38,8 @@ describe "Authentication using Tiddle strategy", type: :request do
 
         it "does not update last_used_at field" do
           expect do
-            get secrets_path, {}, { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
+            get secrets_path, {},
+                { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
           end.not_to change { @user.authentication_tokens.last.last_used_at }
         end
       end
@@ -44,7 +48,8 @@ describe "Authentication using Tiddle strategy", type: :request do
     context "when email contains uppercase letters" do
 
       it "converts email to lower case and authenticates user" do
-        get secrets_path, {}, { "X-USER-EMAIL" => "TEST@example.com", "X-USER-TOKEN" => @token }
+        get secrets_path, {},
+            { "X-USER-EMAIL" => "TEST@example.com", "X-USER-TOKEN" => @token }
         expect(response.status).to eq 200
       end
     end
@@ -53,7 +58,8 @@ describe "Authentication using Tiddle strategy", type: :request do
   context "with invalid email and valid token" do
 
     it "does not allow to access endpoints which require authentication" do
-      get secrets_path, {}, { "X-USER-EMAIL" => "wrong@example.com", "X-USER-TOKEN" => @token }
+      get secrets_path, {},
+          { "X-USER-EMAIL" => "wrong@example.com", "X-USER-TOKEN" => @token }
       expect(response.status).to eq 401
     end
   end
@@ -61,7 +67,8 @@ describe "Authentication using Tiddle strategy", type: :request do
   context "with valid email and invalid token" do
 
     it "does not allow to access endpoints which require authentication" do
-      get secrets_path, {}, { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => "wrong" }
+      get secrets_path, {},
+          { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => "wrong" }
       expect(response.status).to eq 401
     end
   end
