@@ -1,10 +1,10 @@
 describe Tiddle do
 
-  before do
-    @user = User.create!(email: "test@example.com", password: "12345678")
-  end
-
   describe "create_and_return_token" do
+
+    before do
+      @user = User.create!(email: "test@example.com", password: "12345678")
+    end
 
     it "returns string with token" do
       result = Tiddle.create_and_return_token(@user, FakeRequest.new)
@@ -39,20 +39,22 @@ describe Tiddle do
   describe "expire_token" do
 
     before do
-      token = Tiddle.create_and_return_token(@user, FakeRequest.new)
-      @request = FakeRequest.new(headers: { "X-USER-TOKEN" => token })
+      @admin_user = AdminUser.create!(email: "test@example.com", password: "12345678")
+      token = Tiddle.create_and_return_token(@admin_user, FakeRequest.new)
+      @request = FakeRequest.new(headers: { "X-ADMIN-USER-TOKEN" => token })
     end
 
     it "deletes token from the database" do
       expect do
-        Tiddle.expire_token(@user, @request)
-      end.to change { @user.authentication_tokens.count }.by(-1)
+        Tiddle.expire_token(@admin_user, @request)
+      end.to change { @admin_user.authentication_tokens.count }.by(-1)
     end
   end
 
   describe "purge_old_tokens" do
 
     before do
+      @user = User.create!(email: "test@example.com", password: "12345678")
       Tiddle.create_and_return_token(@user, FakeRequest.new)
       @old = @user.authentication_tokens.last
       @old.update_attribute(:last_used_at, 2.hours.ago)

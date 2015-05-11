@@ -22,7 +22,7 @@ module Tiddle
 
     def expire_token(resource, request)
       resource.authentication_tokens
-        .where(body: request.headers["X-#{resource.model_name.to_s.upcase}-TOKEN"])
+        .where(body: request.headers["X-#{resource.model_name.to_s.underscore.dasherize.upcase}-TOKEN"])
         .take!
         .destroy
     end

@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class AdminUser < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :trackable, :validatable,
          :token_authenticatable

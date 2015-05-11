@@ -1,11 +1,11 @@
 describe "Authentication using Tiddle strategy", type: :request do
 
-  before do
-    @user = User.create!(email: "test@example.com", password: "12345678")
-    @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
-  end
-
   context "with valid email and token" do
+
+    before do
+      @user = User.create!(email: "test@example.com", password: "12345678")
+      @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
+    end
 
     it "allows to access endpoints which require authentication" do
       get secrets_path, {},
@@ -57,6 +57,11 @@ describe "Authentication using Tiddle strategy", type: :request do
 
   context "with invalid email and valid token" do
 
+    before do
+      @user = User.create!(email: "test@example.com", password: "12345678")
+      @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
+    end
+
     it "does not allow to access endpoints which require authentication" do
       get secrets_path, {},
           { "X-USER-EMAIL" => "wrong@example.com", "X-USER-TOKEN" => @token }
@@ -66,10 +71,29 @@ describe "Authentication using Tiddle strategy", type: :request do
 
   context "with valid email and invalid token" do
 
+    before do
+      @user = User.create!(email: "test@example.com", password: "12345678")
+      @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
+    end
+
     it "does not allow to access endpoints which require authentication" do
       get secrets_path, {},
           { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => "wrong" }
       expect(response.status).to eq 401
+    end
+  end
+
+  context "when model name consists of two words" do
+
+    before do
+      @admin_user = AdminUser.create!(email: "test@example.com", password: "12345678")
+      @token = Tiddle.create_and_return_token(@admin_user, FakeRequest.new)
+    end
+
+    it "allows to access endpoints which require authentication" do
+      get long_secrets_path, {},
+          { "X-ADMIN-USER-EMAIL" => "test@example.com", "X-ADMIN-USER-TOKEN" => @token }
+      expect(response.status).to eq 200
     end
   end
 end
