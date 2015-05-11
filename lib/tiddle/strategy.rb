@@ -1,4 +1,5 @@
 require 'devise/strategies/authenticatable'
+require 'tiddle/model_name'
 
 module Devise
   module Strategies
@@ -39,7 +40,7 @@ module Devise
         end
 
         def model_name
-          mapping.to.model_name.to_s.underscore.upcase
+          Tiddle::ModelName.new.with_underscores(mapping.to)
         end
 
         def touch_token(token)

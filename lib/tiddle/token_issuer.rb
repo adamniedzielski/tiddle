@@ -1,3 +1,5 @@
+require 'tiddle/model_name'
+
 module Tiddle
   class TokenIssuer
     MAXIMUM_TOKENS_PER_USER = 20
@@ -22,7 +24,7 @@ module Tiddle
 
     def expire_token(resource, request)
       resource.authentication_tokens
-        .where(body: request.headers["X-#{resource.model_name.to_s.underscore.dasherize.upcase}-TOKEN"])
+        .where(body: request.headers["X-#{ModelName.new.with_dashes(resource)}-TOKEN"])
         .take!
         .destroy
     end
