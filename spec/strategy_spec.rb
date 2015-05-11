@@ -83,6 +83,14 @@ describe "Authentication using Tiddle strategy", type: :request do
     end
   end
 
+  context "when no headers are passed" do
+
+    it "does not allow to access endpoints which require authentication" do
+      get secrets_path, {}, {}
+      expect(response.status).to eq 401
+    end
+  end
+
   context "when model name consists of two words" do
 
     before do
