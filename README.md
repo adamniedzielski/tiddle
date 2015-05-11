@@ -53,16 +53,21 @@ end
 class Users::SessionsController < Devise::SessionsController
 
   def create
-    self.resource = warden.authenticate!(auth_options)
-    # ^Or whatever custom logic you would like to use here.
-    token = Tiddle.create_and_return_token(resource, request)
+    user = warden.authenticate!(auth_options)
+    token = Tiddle.create_and_return_token(user, request)
     render json: { authentication_token: token }
   end
 
   def destroy
-    Tiddle.expire_token(current_user, request)
+    Tiddle.expire_token(current_user, request) if current_user
     render json: {}
   end
+
+  private
+
+    # this is invoked before destroy and we have to override it
+    def verify_signed_out_user
+    end
 end
 ```
 
@@ -79,3 +84,5 @@ end
 ```
 
 5) Send ```X-USER-EMAIL``` and ```X-USER-TOKEN``` as headers of every request which requires authentication.
+
+You can read more in a blog post dedicated to Tiddle - http://adamniedzielski.github.io/blog/2015/04/04/token-authentication-with-tiddle/
