@@ -23,10 +23,14 @@ module Tiddle
     end
 
     def expire_token(resource, request)
-      resource.authentication_tokens
-        .where(body: request.headers["X-#{ModelName.new.with_dashes(resource)}-TOKEN"])
-        .take!
-        .destroy
+      find_token(resource, request.headers["X-#{ModelName.new.with_dashes(resource)}-TOKEN"])
+        .try(:destroy)
+    end
+
+    def find_token(resource, token_from_headers)
+      resource.authentication_tokens.detect do |token|
+        Devise.secure_compare(token.body, token_from_headers)
+      end
     end
 
     def purge_old_tokens(resource)

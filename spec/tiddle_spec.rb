@@ -36,6 +36,23 @@ describe Tiddle do
     end
   end
 
+  describe "find_token" do
+
+    before do
+      @admin_user = AdminUser.create!(email: "test@example.com", password: "12345678")
+      @token = Tiddle.create_and_return_token(@admin_user, FakeRequest.new)
+    end
+
+    it "returns a token from the database" do
+      expect(Tiddle.find_token(@admin_user, @token)).to eq @admin_user.authentication_tokens.last
+    end
+
+    it 'only returns tokens belonging to the resource' do
+      other_user = AdminUser.create!(email: "test-other@example.com", password: "12345678")
+      expect(Tiddle.find_token(other_user, @token)).to be_nil
+    end
+  end
+
   describe "expire_token" do
 
     before do

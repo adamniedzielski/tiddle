@@ -11,11 +11,9 @@ module Devise
         resource = mapping.to.find_for_authentication(email: email_from_headers)
         return fail(:invalid_token) unless resource
 
-        resource.authentication_tokens.each do |token|
-          if Devise.secure_compare(token.body, token_from_headers)
-            touch_token(token)
-            return success!(resource)
-          end
+        if (token = Tiddle.find_token(resource, token_from_headers))
+          touch_token(token)
+          return success!(resource)
         end
 
         fail(:invalid_token)
