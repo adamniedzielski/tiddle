@@ -13,13 +13,16 @@ module Tiddle
     end
 
     def create_and_return_token(resource, request)
-      token = resource.authentication_tokens
-        .create! body: generate_token,
+      token_class = authentication_token_class(resource)
+      token, token_body = Devise.token_generator.generate(token_class, :body)
+
+      resource.authentication_tokens
+        .create! body: token_body,
                  last_used_at: DateTime.current,
                  ip_address: request.remote_ip,
                  user_agent: request.user_agent
 
-      token.body
+      token
     end
 
     def expire_token(resource, request)
@@ -28,9 +31,11 @@ module Tiddle
     end
 
     def find_token(resource, token_from_headers)
-      resource.authentication_tokens.detect do |token|
-        Devise.secure_compare(token.body, token_from_headers)
-      end
+      token_class = authentication_token_class(resource)
+      token_body = Devise.token_generator.digest(token_class, :body, token_from_headers)
+      resource.authentication_tokens
+        .where(body: token_body)
+        .take
     end
 
     def purge_old_tokens(resource)
@@ -44,8 +49,8 @@ module Tiddle
 
       attr_accessor :maximum_tokens_per_user
 
-      def generate_token
-        Devise.friendly_token
+      def authentication_token_class(resource)
+        resource.association(:authentication_tokens).klass
       end
   end
 end

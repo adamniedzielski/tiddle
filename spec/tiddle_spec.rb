@@ -9,6 +9,12 @@ describe Tiddle do
     it "returns string with token" do
       result = Tiddle.create_and_return_token(@user, FakeRequest.new)
       expect(result).to be_present
+      expect(result).to be_kind_of(String)
+    end
+
+    it "stores a different string to the database" do
+      result = Tiddle.create_and_return_token(@user, FakeRequest.new)
+      expect(result).to_not eq @user.authentication_tokens.last.body
     end
 
     it "creates new token in the database" do
