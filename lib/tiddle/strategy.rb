@@ -1,5 +1,6 @@
 require 'devise/strategies/authenticatable'
 require 'tiddle/model_name'
+require 'tiddle/token_issuer'
 
 module Devise
   module Strategies
@@ -11,7 +12,8 @@ module Devise
         resource = mapping.to.find_for_authentication(email: email_from_headers)
         return fail(:invalid_token) unless resource
 
-        if (token = Tiddle.find_token(resource, token_from_headers))
+        token = Tiddle::TokenIssuer.build.find_token(resource, token_from_headers)
+        if (token)
           touch_token(token)
           return success!(resource)
         end
