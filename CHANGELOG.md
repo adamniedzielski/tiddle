@@ -1,0 +1,12 @@
+### 0.5.0
+
+Breaking changes. Token digest is stored in the database, not the actual token. This will invalidate all your existing tokens (logging users out) unless you migrate existing tokens. In order to migrate execute:
+
+```ruby
+AuthenticationToken.find_each do |token|
+  token.body = Devise.token_generator.digest(AuthenticationToken, :body, token.body)
+  token.save!
+end
+```
+
+assuming that your model which stores tokens is called ```AuthenticationToken```.
