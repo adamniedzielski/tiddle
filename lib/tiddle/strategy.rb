@@ -13,7 +13,7 @@ module Devise
         return fail(:invalid_token) unless resource
 
         token = Tiddle::TokenIssuer.build.find_token(resource, token_from_headers)
-        if (token)
+        if token
           touch_token(token)
           return success!(resource)
         end
