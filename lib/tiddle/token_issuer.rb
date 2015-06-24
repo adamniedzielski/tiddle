@@ -50,7 +50,13 @@ module Tiddle
       attr_accessor :maximum_tokens_per_user
 
       def authentication_token_class(resource)
-        resource.association(:authentication_tokens).klass
+        ancestors = resource.class.ancestors.map(&:to_s)
+
+        if ancestors.include?("Mongoid::Document")
+          resource.relations["authentication_tokens"].klass
+        else
+          resource.association(:authentication_tokens).klass
+        end
       end
   end
 end
