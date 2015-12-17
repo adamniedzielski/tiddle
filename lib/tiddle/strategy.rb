@@ -9,7 +9,7 @@ module Devise
       def authenticate!
         env["devise.skip_trackable"] = true
 
-        resource = mapping.to.find_for_authentication(*authentication_keys_from_headers)
+        resource = mapping.to.find_for_authentication(authentication_keys_from_headers)
         return fail(:invalid_token) unless resource
 
         token = Tiddle::TokenIssuer.build.find_token(resource, token_from_headers)
