@@ -9,7 +9,8 @@ module Devise
       def authenticate!
         env["devise.skip_trackable"] = true
 
-        resource = mapping.to.find_for_authentication(email: email_from_headers)
+        Rails.logger.debug authentication_keys_from_headers
+        resource = mapping.to.find_for_authentication(*authentication_keys_from_headers)
         return fail(:invalid_token) unless resource
 
         token = Tiddle::TokenIssuer.build.find_token(resource, token_from_headers)
@@ -22,7 +23,7 @@ module Devise
       end
 
       def valid?
-        email_from_headers.present? && token_from_headers.present?
+        authentication_keys_from_headers.present? && token_from_headers.present?
       end
 
       def store?
@@ -31,8 +32,8 @@ module Devise
 
       private
 
-        def email_from_headers
-          env["HTTP_X_#{model_name}_EMAIL"]
+        def authentication_keys_from_headers
+          authentication_keys.map{|key| {key => env["HTTP_X_#{model_name}_#{key.upcase}"]}}.reduce(:merge)
         end
 
         def token_from_headers
@@ -41,6 +42,10 @@ module Devise
 
         def model_name
           Tiddle::ModelName.new.with_underscores(mapping.to)
+        end
+
+        def authentication_keys
+          Devise.authentication_keys
         end
 
         def touch_token(token)
