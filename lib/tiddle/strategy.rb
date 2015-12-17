@@ -9,7 +9,6 @@ module Devise
       def authenticate!
         env["devise.skip_trackable"] = true
 
-        Rails.logger.debug authentication_keys_from_headers
         resource = mapping.to.find_for_authentication(*authentication_keys_from_headers)
         return fail(:invalid_token) unless resource
 
