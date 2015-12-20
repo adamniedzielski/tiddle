@@ -96,3 +96,7 @@ config.middleware.delete ActionDispatch::Session::CookieStore
 ```
 
 More: http://adamniedzielski.github.io/blog/2015/04/04/token-authentication-with-tiddle/#rails-session
+
+## Using field other than email
+
+Change ```config.authentication_keys``` in Devise intitializer and Tiddle will use this value.
