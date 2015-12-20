@@ -104,4 +104,33 @@ describe "Authentication using Tiddle strategy", type: :request do
       expect(response.status).to eq 200
     end
   end
+
+  describe "using field other than email" do
+
+    before do
+      Devise.setup do |config|
+        config.authentication_keys = [:nick_name]
+      end
+
+      @user = User.create!(
+        email: "test@example.com",
+        password: "12345678",
+        nick_name: "test"
+      )
+      @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
+    end
+
+    after do
+      Devise.setup do |config|
+        config.authentication_keys = [:email]
+      end
+    end
+
+    it "allows to access endpoints which require authentication with valid \
+      nick name and token" do
+      get secrets_path, {},
+          { "X-USER-NICK-NAME" => "test", "X-USER-TOKEN" => @token }
+      expect(response.status).to eq 200
+    end
+  end
 end

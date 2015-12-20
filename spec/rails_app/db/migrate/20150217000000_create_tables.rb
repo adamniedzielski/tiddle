@@ -16,6 +16,8 @@ class CreateTables < ActiveRecord::Migration
       t.string   :current_sign_in_ip
       t.string   :last_sign_in_ip
 
+      t.string :nick_name
+
       t.timestamps null: false
     end
 
