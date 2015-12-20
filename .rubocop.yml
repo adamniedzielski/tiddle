@@ -21,3 +21,5 @@ Style/EmptyLinesAroundModuleBody:
   Enabled: false
 Style/MultilineOperationIndentation:
   EnforcedStyle: indented
+Metrics/LineLength:
+  Max: 100
