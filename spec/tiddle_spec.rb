@@ -50,13 +50,13 @@ describe Tiddle do
     end
 
     it "returns a token from the database" do
-      result = Tiddle::TokenIssuer.build.find_token(@admin_user, @token)
+      result = Tiddle.find_token(@admin_user, @token)
       expect(result).to eq @admin_user.authentication_tokens.last
     end
 
     it 'only returns tokens belonging to the resource' do
       other_user = AdminUser.create!(email: "test-other@example.com", password: "12345678")
-      result = Tiddle::TokenIssuer.build.find_token(other_user, @token)
+      result = Tiddle.find_token(other_user, @token)
       expect(result).to be_nil
     end
   end
