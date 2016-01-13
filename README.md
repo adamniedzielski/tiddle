@@ -83,7 +83,7 @@ class PostsController < ApplicationController
 end
 ```
 
-5) By default any generated token expires after 2 weeks of inactivity - The user needs to signin in again to generate a new token. You can change the token ttl by adding the following to an initializer:
+5) By default any generated token expires after 2 weeks of inactivity - The user will need to login to generate a new token. You can change the token ttl by adding the following to an initializer:
 
 ```ruby
 Tiddle.configure do |config|
