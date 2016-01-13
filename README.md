@@ -83,7 +83,15 @@ class PostsController < ApplicationController
 end
 ```
 
-5) Send ```X-USER-EMAIL``` and ```X-USER-TOKEN``` as headers of every request which requires authentication.
+5) By default any generated token expires after 2 weeks of inactivity - The user needs to signin in again to generate a new token. You can change the token ttl by adding the following to an initializer:
+
+```ruby
+Tiddle.configure do |config|
+  config.token_ttl = 1.month
+end
+```
+
+6) Send ```X-USER-EMAIL``` and ```X-USER-TOKEN``` as headers of every request which requires authentication.
 
 You can read more in a blog post dedicated to Tiddle - http://adamniedzielski.github.io/blog/2015/04/04/token-authentication-with-tiddle/
 
@@ -100,3 +108,4 @@ More: http://adamniedzielski.github.io/blog/2015/04/04/token-authentication-with
 ## Using field other than email
 
 Change ```config.authentication_keys``` in Devise intitializer and Tiddle will use this value.
+
