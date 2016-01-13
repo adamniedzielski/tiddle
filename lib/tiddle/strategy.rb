@@ -14,10 +14,8 @@ module Devise
 
         token = Tiddle::TokenIssuer.build.find_token(resource, token_from_headers)
         return fail(:invalid_token) if token.nil?
-
-
-        if token.last_used_at + 2.weeks > Time.now 
-          puts token.last_used_at + 2.weeks
+        
+        if token.last_used_at + Tiddle.configuration.token_ttl > Time.now 
           touch_token(token)
           return success!(resource)
         else

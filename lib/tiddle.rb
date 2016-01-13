@@ -3,6 +3,7 @@ require "tiddle/model"
 require "tiddle/strategy"
 require "tiddle/rails"
 require "tiddle/token_issuer"
+require "tiddle/configuration"
 
 module Tiddle
   

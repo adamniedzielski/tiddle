@@ -89,8 +89,7 @@ describe "Authentication using Tiddle strategy", type: :request do
       @user = User.create!(email: "test@example.com", password: "12345678")
       @request_token = Tiddle.create_and_return_token(@user, FakeRequest.new)
       @token = Tiddle.find_token(@user, @request_token)
-      @token.update_attribute(:last_used_at, 2.week.ago + 1.day)
-      puts @token.last_used_at
+      @token.update_attribute(:last_used_at, 15.days.ago)
     end
 
     it "does not allow to access endpoints which require authentication" do
