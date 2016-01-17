@@ -13,12 +13,14 @@ module Devise
         return fail(:invalid_token) unless resource
 
         token = Tiddle::TokenIssuer.build.find_token(resource, token_from_headers)
-        if token
+        return fail(:invalid_token) if token.nil?
+        
+        if token.last_used_at + Tiddle.configuration.token_ttl > Time.now 
           touch_token(token)
           return success!(resource)
+        else
+          return fail(:token_expired)
         end
-
-        fail(:invalid_token)
       end
 
       def valid?

@@ -2,3 +2,4 @@ en:
   devise:
     failure:
       invalid_token: "Invalid email or token"
+      token_expired: "Token has expired, please login to generate a new token"

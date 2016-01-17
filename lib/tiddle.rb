@@ -3,9 +3,10 @@ require "tiddle/model"
 require "tiddle/strategy"
 require "tiddle/rails"
 require "tiddle/token_issuer"
+require "tiddle/configuration"
 
 module Tiddle
-
+  
   def self.create_and_return_token(resource, request)
     TokenIssuer.build.create_and_return_token(resource, request)
   end
@@ -16,6 +17,10 @@ module Tiddle
 
   def self.purge_old_tokens(resource)
     TokenIssuer.build.purge_old_tokens(resource)
+  end
+
+  def self.find_token(resource, token)
+    TokenIssuer.build.find_token(resource, token)
   end
 end
 
