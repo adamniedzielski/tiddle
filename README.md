@@ -100,3 +100,10 @@ More: http://adamniedzielski.github.io/blog/2015/04/04/token-authentication-with
 ## Using field other than email
 
 Change ```config.authentication_keys``` in Devise intitializer and Tiddle will use this value.
+
+
+## Security
+
+It makes sense removing a user's tokens after a password change. Depending on the project and on your taste, this can be done using various methods like running `user.authentication_tokens.delete_all` after the password change or with an `after_save` callback in your user model which runs `authentication_tokens.delete_all if encrypted_password_changed?`.
+
+In case of a security breach, remove all existing tokens (and change all passwords).
