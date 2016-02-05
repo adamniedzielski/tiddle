@@ -16,3 +16,4 @@ mkmf.log
 .ruby-version
 *.sqlite3
 *.log
+*.gemfile.lock
