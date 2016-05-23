@@ -8,6 +8,12 @@ Tiddle provides Devise strategy for token authentication in API-only Ruby on Rai
 
 Tiddle is lightweight and non-configurable. It does what it has to do and leaves some manual implementation to you.
 
+## Versions
+
+You are looking at the ```0.6.x``` branch. This branch allows you to use Devise 3, but this means that you cannot use it with Rails 5.0. If you want to use Tiddle with Rails 5.0 then take a look at the ```master``` branch.
+
+This branch will not be actively maintained, but it may receive some bug fixes.
+
 ## Installation
 
 Add this line to your application's Gemfile:
