@@ -11,7 +11,7 @@ Tiddle is lightweight and non-configurable. It does what it has to do and leaves
 
 ## Versions
 
-The ```master``` branch is meant to support Rails 5.0 (this version of Tiddle is not yet released), but it requires Devise 4. If you want to use Devise 3 with Rails 4.2 then take a look at the ```0.6.x``` branch.
+Versions 0.7.x+ are meant to support Rails 5.0, but they require Devise 4. If you want to use Devise 3 with Rails 4.2 then take a look at the ```0.6.x``` branch.
 
 ## Installation
 

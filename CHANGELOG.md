@@ -1,3 +1,7 @@
+### 0.7.0
+
+Adds support for Rails 5. Requires Devise 4.
+
 ### 0.6.0
 
 Adds support for authentication keys other than email.
