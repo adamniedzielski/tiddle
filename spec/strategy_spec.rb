@@ -8,8 +8,13 @@ describe "Authentication using Tiddle strategy", type: :request do
     end
 
     it "allows to access endpoints which require authentication" do
-      get secrets_path, {},
-          { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
+      warningless_get(
+        secrets_path,
+        headers: {
+          "X-USER-EMAIL" => "test@example.com",
+          "X-USER-TOKEN" => @token
+        }
+      )
       expect(response.status).to eq 200
     end
 
@@ -24,8 +29,13 @@ describe "Authentication using Tiddle strategy", type: :request do
 
         it "updates last_used_at field" do
           expect do
-            get secrets_path, {},
-                { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
+            warningless_get(
+              secrets_path,
+              headers: {
+                "X-USER-EMAIL" => "test@example.com",
+                "X-USER-TOKEN" => @token
+              }
+            )
           end.to change { @user.authentication_tokens.last.last_used_at }
         end
       end
@@ -38,8 +48,13 @@ describe "Authentication using Tiddle strategy", type: :request do
 
         it "does not update last_used_at field" do
           expect do
-            get secrets_path, {},
-                { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
+            warningless_get(
+              secrets_path,
+              headers: {
+                "X-USER-EMAIL" => "test@example.com",
+                "X-USER-TOKEN" => @token
+              }
+            )
           end.not_to change { @user.authentication_tokens.last.last_used_at }
         end
       end
@@ -48,8 +63,13 @@ describe "Authentication using Tiddle strategy", type: :request do
     context "when email contains uppercase letters" do
 
       it "converts email to lower case and authenticates user" do
-        get secrets_path, {},
-            { "X-USER-EMAIL" => "TEST@example.com", "X-USER-TOKEN" => @token }
+        warningless_get(
+          secrets_path,
+          headers: {
+            "X-USER-EMAIL" => "TEST@example.com",
+            "X-USER-TOKEN" => @token
+          }
+        )
         expect(response.status).to eq 200
       end
     end
@@ -63,8 +83,13 @@ describe "Authentication using Tiddle strategy", type: :request do
     end
 
     it "does not allow to access endpoints which require authentication" do
-      get secrets_path, {},
-          { "X-USER-EMAIL" => "wrong@example.com", "X-USER-TOKEN" => @token }
+      warningless_get(
+        secrets_path,
+        headers: {
+          "X-USER-EMAIL" => "wrong@example.com",
+          "X-USER-TOKEN" => @token
+        }
+      )
       expect(response.status).to eq 401
     end
   end
@@ -77,8 +102,13 @@ describe "Authentication using Tiddle strategy", type: :request do
     end
 
     it "does not allow to access endpoints which require authentication" do
-      get secrets_path, {},
-          { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => "wrong" }
+      warningless_get(
+        secrets_path,
+        headers: {
+          "X-USER-EMAIL" => "test@example.com",
+          "X-USER-TOKEN" => "wrong"
+        }
+      )
       expect(response.status).to eq 401
     end
   end
@@ -86,7 +116,7 @@ describe "Authentication using Tiddle strategy", type: :request do
   context "when no headers are passed" do
 
     it "does not allow to access endpoints which require authentication" do
-      get secrets_path, {}, {}
+      warningless_get secrets_path, headers: {}
       expect(response.status).to eq 401
     end
   end
@@ -99,8 +129,13 @@ describe "Authentication using Tiddle strategy", type: :request do
     end
 
     it "allows to access endpoints which require authentication" do
-      get long_secrets_path, {},
-          { "X-ADMIN-USER-EMAIL" => "test@example.com", "X-ADMIN-USER-TOKEN" => @token }
+      warningless_get(
+        long_secrets_path,
+        headers: {
+          "X-ADMIN-USER-EMAIL" => "test@example.com",
+          "X-ADMIN-USER-TOKEN" => @token
+        }
+      )
       expect(response.status).to eq 200
     end
   end
@@ -128,8 +163,10 @@ describe "Authentication using Tiddle strategy", type: :request do
 
     it "allows to access endpoints which require authentication with valid \
       nick name and token" do
-      get secrets_path, {},
-          { "X-USER-NICK-NAME" => "test", "X-USER-TOKEN" => @token }
+      warningless_get(
+        secrets_path,
+        headers: { "X-USER-NICK-NAME" => "test", "X-USER-TOKEN" => @token }
+      )
       expect(response.status).to eq 200
     end
   end
