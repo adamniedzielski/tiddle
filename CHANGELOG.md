@@ -1,3 +1,7 @@
+### 1.0.0
+
+No major changes - just a stable version release.
+
 ### 0.7.0
 
 Adds support for Rails 5. Requires Devise 4.
