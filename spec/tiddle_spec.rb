@@ -1,7 +1,5 @@
 describe Tiddle do
-
   describe "create_and_return_token" do
-
     before do
       @user = User.create!(email: "test@example.com", password: "12345678")
     end
@@ -43,7 +41,6 @@ describe Tiddle do
   end
 
   describe "find_token" do
-
     before do
       @admin_user = AdminUser.create!(email: "test@example.com", password: "12345678")
       @token = Tiddle.create_and_return_token(@admin_user, FakeRequest.new)
@@ -62,7 +59,6 @@ describe Tiddle do
   end
 
   describe "expire_token" do
-
     before do
       @admin_user = AdminUser.create!(email: "test@example.com", password: "12345678")
       token = Tiddle.create_and_return_token(@admin_user, FakeRequest.new)
@@ -77,7 +73,6 @@ describe Tiddle do
   end
 
   describe "purge_old_tokens" do
-
     before do
       @user = User.create!(email: "test@example.com", password: "12345678")
       Tiddle.create_and_return_token(@user, FakeRequest.new)

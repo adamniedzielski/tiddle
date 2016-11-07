@@ -1,7 +1,5 @@
 describe "Authentication using Tiddle strategy", type: :request do
-
   context "with valid email and token" do
-
     before do
       @user = User.create!(email: "test@example.com", password: "12345678")
       @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
@@ -19,12 +17,10 @@ describe "Authentication using Tiddle strategy", type: :request do
     end
 
     describe "touching token" do
-
       context "when token was last used more than hour ago" do
-
         before do
           @user.authentication_tokens.last
-            .update_attribute(:last_used_at, 2.hours.ago)
+               .update_attribute(:last_used_at, 2.hours.ago)
         end
 
         it "updates last_used_at field" do
@@ -41,7 +37,6 @@ describe "Authentication using Tiddle strategy", type: :request do
       end
 
       context "when token was last used less than hour ago" do
-
         before do
           @user.authentication_tokens.last.update_attribute(:last_used_at, 30.minutes.ago)
         end
@@ -61,7 +56,6 @@ describe "Authentication using Tiddle strategy", type: :request do
     end
 
     context "when email contains uppercase letters" do
-
       it "converts email to lower case and authenticates user" do
         warningless_get(
           secrets_path,
@@ -76,7 +70,6 @@ describe "Authentication using Tiddle strategy", type: :request do
   end
 
   context "with invalid email and valid token" do
-
     before do
       @user = User.create!(email: "test@example.com", password: "12345678")
       @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
@@ -95,7 +88,6 @@ describe "Authentication using Tiddle strategy", type: :request do
   end
 
   context "with valid email and invalid token" do
-
     before do
       @user = User.create!(email: "test@example.com", password: "12345678")
       @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
@@ -114,7 +106,6 @@ describe "Authentication using Tiddle strategy", type: :request do
   end
 
   context "when no headers are passed" do
-
     it "does not allow to access endpoints which require authentication" do
       warningless_get secrets_path, headers: {}
       expect(response.status).to eq 401
@@ -122,7 +113,6 @@ describe "Authentication using Tiddle strategy", type: :request do
   end
 
   context "when model name consists of two words" do
-
     before do
       @admin_user = AdminUser.create!(email: "test@example.com", password: "12345678")
       @token = Tiddle.create_and_return_token(@admin_user, FakeRequest.new)
@@ -141,7 +131,6 @@ describe "Authentication using Tiddle strategy", type: :request do
   end
 
   describe "using field other than email" do
-
     before do
       Devise.setup do |config|
         config.authentication_keys = [:nick_name]

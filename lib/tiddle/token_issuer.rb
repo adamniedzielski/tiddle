@@ -17,10 +17,10 @@ module Tiddle
       token, token_body = Devise.token_generator.generate(token_class, :body)
 
       resource.authentication_tokens
-        .create! body: token_body,
-                 last_used_at: DateTime.current,
-                 ip_address: request.remote_ip,
-                 user_agent: request.user_agent
+              .create! body: token_body,
+                       last_used_at: DateTime.current,
+                       ip_address: request.remote_ip,
+                       user_agent: request.user_agent
 
       token
     end
@@ -40,17 +40,17 @@ module Tiddle
 
     def purge_old_tokens(resource)
       resource.authentication_tokens
-        .order(last_used_at: :desc)
-        .offset(maximum_tokens_per_user)
-        .destroy_all
+              .order(last_used_at: :desc)
+              .offset(maximum_tokens_per_user)
+              .destroy_all
     end
 
     private
 
-      attr_accessor :maximum_tokens_per_user
+    attr_accessor :maximum_tokens_per_user
 
-      def authentication_token_class(resource)
-        resource.association(:authentication_tokens).klass
-      end
+    def authentication_token_class(resource)
+      resource.association(:authentication_tokens).klass
+    end
   end
 end

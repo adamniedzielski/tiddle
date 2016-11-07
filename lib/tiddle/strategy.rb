@@ -5,7 +5,6 @@ require 'tiddle/token_issuer'
 module Devise
   module Strategies
     class TokenAuthenticatable < Authenticatable
-
       def authenticate!
         env["devise.skip_trackable"] = true
 
@@ -31,27 +30,27 @@ module Devise
 
       private
 
-        def authentication_keys_from_headers
-          authentication_keys.map do |key|
-            { key => env["HTTP_X_#{model_name}_#{key.upcase}"] }
-          end.reduce(:merge)
-        end
+      def authentication_keys_from_headers
+        authentication_keys.map do |key|
+          { key => env["HTTP_X_#{model_name}_#{key.upcase}"] }
+        end.reduce(:merge)
+      end
 
-        def token_from_headers
-          env["HTTP_X_#{model_name}_TOKEN"]
-        end
+      def token_from_headers
+        env["HTTP_X_#{model_name}_TOKEN"]
+      end
 
-        def model_name
-          Tiddle::ModelName.new.with_underscores(mapping.to)
-        end
+      def model_name
+        Tiddle::ModelName.new.with_underscores(mapping.to)
+      end
 
-        def authentication_keys
-          mapping.to.authentication_keys
-        end
+      def authentication_keys
+        mapping.to.authentication_keys
+      end
 
-        def touch_token(token)
-          token.update_attribute(:last_used_at, DateTime.current) if token.last_used_at < 1.hour.ago
-        end
+      def touch_token(token)
+        token.update_attribute(:last_used_at, DateTime.current) if token.last_used_at < 1.hour.ago
+      end
     end
   end
 end

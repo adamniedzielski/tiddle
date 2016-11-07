@@ -1,5 +1,4 @@
 class FakeRequest
-
   def initialize(
     remote_ip: "23.12.54.111",
     user_agent: "I am not a bot",
