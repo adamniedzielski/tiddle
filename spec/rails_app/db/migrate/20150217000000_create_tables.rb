@@ -1,4 +1,10 @@
-class CreateTables < ActiveRecord::Migration
+if Rails::VERSION::MAJOR > 4
+  migration_class = ActiveRecord::Migration[4.2]
+else
+  migration_class = ActiveRecord::Migration
+end
+
+class CreateTables < migration_class
   def change
     create_table(:users) do |t|
       ## Database authenticatable
