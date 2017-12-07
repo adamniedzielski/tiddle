@@ -40,7 +40,7 @@ end
 2) Generate the model which stores authentication tokens. The model name is not important, but the Devise-enabled model should have association called ```authentication_tokens```.
 
 ```
-rails g model AuthenticationToken body:string user:references last_used_at:datetime ip_address:string user_agent:string
+rails g model AuthenticationToken body:string user:references last_used_at:datetime expires_in:integer ip_address:string user_agent:string
 ```
 
 ```ruby
@@ -111,3 +111,9 @@ Change ```config.authentication_keys``` in Devise intitializer and Tiddle will u
 Usually it makes sense to remove user's tokens after a password change. Depending on the project and on your taste, this can be done using various methods like running `user.authentication_tokens.destroy_all` after the password change or with an `after_save` callback in your model which runs `authentication_tokens.destroy_all if encrypted_password_changed?`.
 
 In case of a security breach, remove all existing tokens.
+
+Tokens are expiring after certain period of inactivity. This behavior is optional. If you want your token to expire, create it passing `expires_in` option:
+
+```ruby
+token = Tiddle.create_and_return_token(user, request, expires_in: 1.month)
+```
