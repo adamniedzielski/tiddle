@@ -53,8 +53,8 @@ module Devise
       end
 
       def unexpired?(token)
-        return true if token.expires_in == 0
-        DateTime.current <= token.last_used_at + token.expires_in
+        return true if token.expires_in.zero?
+        Time.current <= token.last_used_at + token.expires_in
       end
     end
   end
