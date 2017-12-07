@@ -12,7 +12,7 @@ module Devise
         return fail(:invalid_token) unless resource
 
         token = Tiddle::TokenIssuer.build.find_token(resource, token_from_headers)
-        if token
+        if token && unexpired?(token)
           touch_token(token)
           return success!(resource)
         end
@@ -50,6 +50,11 @@ module Devise
 
       def touch_token(token)
         token.update_attribute(:last_used_at, Time.current) if token.last_used_at < 1.hour.ago
+      end
+
+      def unexpired?(token)
+        return true if token.expires_in == 0
+        DateTime.current <= token.last_used_at + token.expires_in
       end
     end
   end
