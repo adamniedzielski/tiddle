@@ -1,8 +1,8 @@
-migration_class = if Rails::VERSION::MAJOR > 4
-                    ActiveRecord::Migration[4.2]
-                  else
-                    ActiveRecord::Migration
-                  end
+if Rails::VERSION::MAJOR > 4
+  migration_class = ActiveRecord::Migration[4.2]
+else
+  migration_class = ActiveRecord::Migration
+end
 
 class CreateTables < migration_class
   def change
