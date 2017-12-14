@@ -4,9 +4,7 @@ require 'rubocop/rake_task'
 require 'appraisal'
 
 RSpec::Core::RakeTask.new(spec: :rubocop)
-RuboCop::RakeTask.new(:rubocop) do |task|
-  task.fail_on_error = false
-end
+RuboCop::RakeTask.new(:rubocop)
 
 if !ENV["APPRAISAL_INITIALIZED"] && !ENV["TRAVIS"]
   task default: :appraisal
