@@ -24,7 +24,7 @@ describe Tiddle do
     it "sets last_used_at field" do
       Tiddle.create_and_return_token(@user, FakeRequest.new)
       expect(@user.authentication_tokens.last.last_used_at)
-        .to be_within(1).of(DateTime.current)
+        .to be_within(1).of(Time.current)
     end
 
     it "saves ip address" do

@@ -18,7 +18,7 @@ module Tiddle
 
       resource.authentication_tokens
               .create! body: token_body,
-                       last_used_at: DateTime.current,
+                       last_used_at: Time.current,
                        ip_address: request.remote_ip,
                        user_agent: request.user_agent
 

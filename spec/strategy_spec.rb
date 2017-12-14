@@ -32,7 +32,7 @@ describe "Authentication using Tiddle strategy", type: :request do
                 "X-USER-TOKEN" => @token
               }
             )
-          end.to change { @user.authentication_tokens.last.last_used_at }
+          end.to(change { @user.authentication_tokens.last.last_used_at })
         end
       end
 
@@ -50,7 +50,7 @@ describe "Authentication using Tiddle strategy", type: :request do
                 "X-USER-TOKEN" => @token
               }
             )
-          end.not_to change { @user.authentication_tokens.last.last_used_at }
+          end.not_to(change { @user.authentication_tokens.last.last_used_at })
         end
       end
     end

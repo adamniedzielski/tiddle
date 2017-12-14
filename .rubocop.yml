@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.2
   Include:
     - 'lib'
     - 'spec'
@@ -16,3 +16,13 @@ Style/SignalException:
   Enabled: false
 Metrics/LineLength:
   Max: 100
+Gemspec/OrderedDependencies:
+  Enabled: false
+Naming/FileName:
+  Exclude:
+    - 'Rakefile'
+    - 'Gemfile'
+    - 'Appraisals'
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
