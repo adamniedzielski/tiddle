@@ -4,5 +4,6 @@ source "https://rubygems.org"
 
 gem "rubocop", "~> 0.52.0"
 gem "rails", "~> 5.1.0"
+gem "mongoid", "~> 6"
 
 gemspec path: "../"

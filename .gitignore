@@ -17,3 +17,4 @@ mkmf.log
 *.sqlite3
 *.log
 *.gemfile.lock
+.idea
