@@ -8,7 +8,7 @@ require "action_view/railtie"
 module RailsApp
   class Application < Rails::Application
     config.eager_load = true
-    config.root =  File.expand_path('../../.', __FILE__)
+    config.root = File.expand_path('../../.', __FILE__)
     config.consider_all_requests_local = true
 
     if config.active_record.sqlite3
@@ -16,4 +16,3 @@ module RailsApp
     end
   end
 end
-

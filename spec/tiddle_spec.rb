@@ -23,7 +23,7 @@ describe Tiddle do
 
     it "sets last_used_at field" do
       Tiddle.create_and_return_token(@user, FakeRequest.new)
-      expect(@user.authentication_tokens.last.last_used_at)
+      expect(@user.authentication_tokens.last.last_used_at.to_time)
         .to be_within(1).of(Time.current)
     end
 
