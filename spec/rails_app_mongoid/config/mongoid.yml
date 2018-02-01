@@ -1,0 +1,6 @@
+test:
+  clients:
+    default:
+      database: tiddle_test
+      hosts:
+        - 0.0.0.0:27017

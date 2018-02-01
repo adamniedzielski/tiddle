@@ -1,8 +1,15 @@
 describe "Authentication using Tiddle strategy", type: :request do
   context "with valid email and token" do
     before do
+      User.destroy_all
+      AuthenticationToken.destroy_all
       @user = User.create!(email: "test@example.com", password: "12345678")
       @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
+    end
+
+    after do
+      User.destroy_all
+      AuthenticationToken.destroy_all
     end
 
     it "allows to access endpoints which require authentication" do
@@ -32,7 +39,7 @@ describe "Authentication using Tiddle strategy", type: :request do
                 "X-USER-TOKEN" => @token
               }
             )
-          end.to(change { @user.authentication_tokens.last.last_used_at })
+          end.to(change { @user.reload.authentication_tokens.last.last_used_at })
         end
       end
 
