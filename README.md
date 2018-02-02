@@ -40,7 +40,7 @@ end
 2) Generate the model which stores authentication tokens. The model name is not important, but the Devise-enabled model should have association called ```authentication_tokens```.
 
 ```
-rails g model AuthenticationToken body:string user:references last_used_at:datetime expires_in:integer ip_address:string user_agent:string
+rails g model AuthenticationToken body:string:index user:references last_used_at:datetime expires_in:integer ip_address:string user_agent:string
 ```
 
 ```ruby
