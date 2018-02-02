@@ -159,4 +159,42 @@ describe "Authentication using Tiddle strategy", type: :request do
       expect(response.status).to eq 200
     end
   end
+
+  context "when token has expires_in set up" do
+    before do
+      @user = User.create!(email: "test@example.com", password: "12345678")
+      @token = Tiddle.create_and_return_token(@user, FakeRequest.new, expires_in: 1.week)
+    end
+
+    describe "token is not expired" do
+      it "does allow to access endpoints which require authentication" do
+        warningless_get(
+          secrets_path,
+          headers: {
+            "X-USER-EMAIL" => "test@example.com",
+            "X-USER-TOKEN" => @token
+          }
+        )
+        expect(response.status).to eq 200
+      end
+    end
+
+    describe "token is expired" do
+      before do
+        token = @user.authentication_tokens.order(:id).last
+        token.update_attribute(:last_used_at, 1.month.ago)
+      end
+
+      it "does not allow to access endpoints which require authentication" do
+        warningless_get(
+          secrets_path,
+          headers: {
+            "X-USER-EMAIL" => "test@example.com",
+            "X-USER-TOKEN" => @token
+          }
+        )
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
