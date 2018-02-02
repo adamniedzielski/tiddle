@@ -53,7 +53,9 @@ module Devise
       end
 
       def unexpired?(token)
-        return true if token.expires_in.zero?
+        return true unless token.respond_to?(:expires_in)
+        return true if token.expires_in.blank? || token.expires_in.zero?
+
         Time.current <= token.last_used_at + token.expires_in
       end
     end
