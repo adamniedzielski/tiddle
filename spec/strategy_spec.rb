@@ -169,8 +169,15 @@ describe "Authentication using Tiddle strategy", type: :request do
 
   context "when token has expires_in set up" do
     before do
+      User.destroy_all
+      AuthenticationToken.destroy_all
       @user = User.create!(email: "test@example.com", password: "12345678")
       @token = Tiddle.create_and_return_token(@user, FakeRequest.new, expires_in: 1.week)
+    end
+
+    after do
+      User.destroy_all
+      AuthenticationToken.destroy_all
     end
 
     describe "token is not expired" do
@@ -188,8 +195,13 @@ describe "Authentication using Tiddle strategy", type: :request do
 
     describe "token is expired" do
       before do
-        token = @user.authentication_tokens.order(:id).last
+        token = @user.authentication_tokens.sort_by(&:id).last
         token.update_attribute(:last_used_at, 1.month.ago)
+      end
+
+      after do
+        User.destroy_all
+        AuthenticationToken.destroy_all
       end
 
       it "does not allow to access endpoints which require authentication" do
