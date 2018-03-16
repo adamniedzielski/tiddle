@@ -1,3 +1,10 @@
+### 1.1.0
+
+New feature: optional token expiration after period of inactivity - #37
+
+You have to add `expires_in` field to the database table holding the tokens
+to benefit from this feature.
+
 ### 1.0.0
 
 No major changes - just a stable version release.
