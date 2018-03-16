@@ -11,6 +11,6 @@ appraise "rails5.1" do
 end
 
 appraise "rails5.2" do
-  gem "rails", "5.2.0.beta2"
+  gem "rails", "5.2.0.rc1"
   gem "devise", "4.4.1"
 end
