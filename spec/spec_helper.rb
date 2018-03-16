@@ -67,7 +67,13 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     # Do initial migration
-    ActiveRecord::Migrator.migrate(File.expand_path("rails_app/db/migrate/", File.dirname(__FILE__)))
+    path = File.expand_path("rails_app/db/migrate/", File.dirname(__FILE__))
+
+    if Gem::Requirement.new(">= 5.2.0.rc1") =~ Rails.gem_version
+      ActiveRecord::MigrationContext.new(path).migrate
+    else
+      ActiveRecord::Migrator.migrate(path)
+    end
   end
 
   config.use_transactional_fixtures = true

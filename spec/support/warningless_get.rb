@@ -1,5 +1,5 @@
 def warningless_get(path, headers:)
-  if Rails::VERSION::MAJOR >= 5
+  if Gem::Requirement.new(">= 5") =~ Rails.gem_version
     get path, headers: headers
   else
     get path, {}, headers
