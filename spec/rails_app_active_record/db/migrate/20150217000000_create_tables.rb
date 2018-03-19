@@ -1,10 +1,12 @@
-if Rails::VERSION::MAJOR > 4
-  migration_class = ActiveRecord::Migration[4.2]
-else
-  migration_class = ActiveRecord::Migration
-end
+migration_class = if Rails::VERSION::MAJOR > 4
+                    ActiveRecord::Migration[4.2]
+                  else
+                    ActiveRecord::Migration
+                  end
 
 class CreateTables < migration_class
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
   def change
     create_table(:users) do |t|
       ## Database authenticatable
@@ -63,4 +65,6 @@ class CreateTables < migration_class
       t.timestamps null: false
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 end

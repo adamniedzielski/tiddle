@@ -32,7 +32,7 @@ describe "Authentication using Tiddle strategy", type: :request do
                 "X-USER-TOKEN" => @token
               }
             )
-          end.to(change { @user.authentication_tokens.last.last_used_at })
+          end.to(change { @user.reload.authentication_tokens.last.last_used_at })
         end
       end
 
@@ -181,7 +181,7 @@ describe "Authentication using Tiddle strategy", type: :request do
 
     describe "token is expired" do
       before do
-        token = @user.authentication_tokens.order(:id).last
+        token = @user.authentication_tokens.sort_by(&:id).last
         token.update_attribute(:last_used_at, 1.month.ago)
       end
 

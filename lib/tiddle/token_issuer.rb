@@ -31,7 +31,8 @@ module Tiddle
     def find_token(resource, token_from_headers)
       token_class = authentication_token_class(resource)
       token_body = Devise.token_generator.digest(token_class, :body, token_from_headers)
-      resource.authentication_tokens.find_by(body: token_body)
+      # 'find_by' behaves differently in AR vs Mongoid, so using 'where' instead
+      resource.authentication_tokens.where(body: token_body).first
     end
 
     def purge_old_tokens(resource)
@@ -46,7 +47,13 @@ module Tiddle
     attr_accessor :maximum_tokens_per_user
 
     def authentication_token_class(resource)
-      resource.association(:authentication_tokens).klass
+      if resource.respond_to?(:association) # ActiveRecord
+        resource.association(:authentication_tokens).klass
+      elsif resource.respond_to?(:relations) # Mongoid
+        resource.relations['authentication_tokens'].klass
+      else
+        raise 'Cannot determine authentication token class, unsupported ORM/ODM?'
+      end
     end
 
     def token_attributes(token_body, request, expires_in)
