@@ -2,10 +2,10 @@ module Backend
   def self.from_name(name)
     puts "Backend: #{name}"
     case name
-      when 'mongoid'
-        MongoidBackend.new
-      else
-        ActiveRecordBackend.new
+    when 'mongoid'
+      MongoidBackend.new
+    else
+      ActiveRecordBackend.new
     end
   end
 
