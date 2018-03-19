@@ -1,3 +1,7 @@
+### 1.2.0
+
+Adds support for MongoDB.
+
 ### 1.1.0
 
 New feature: optional token expiration after period of inactivity - #37
