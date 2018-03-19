@@ -15,6 +15,10 @@ module Backend
       require 'rails_app_active_record/config/environment'
     end
 
+    def setup_database_cleaner
+      # Not necessary
+    end
+
     def migrate!
       # Do initial migration
       path = File.expand_path("../rails_app_active_record/db/migrate/", File.dirname(__FILE__))
@@ -32,6 +36,11 @@ module Backend
       require 'mongoid'
       require 'devise/orm/mongoid'
       require 'rails_app_mongoid/config/environment'
+      require 'database_cleaner'
+    end
+
+    def setup_database_cleaner
+      DatabaseCleaner[:mongoid].strategy = :truncation
     end
 
     def migrate!
