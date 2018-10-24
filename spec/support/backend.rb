@@ -41,6 +41,7 @@ module Backend
 
     def setup_database_cleaner
       DatabaseCleaner[:mongoid].strategy = :truncation
+      DatabaseCleaner.allow_remote_database_url = true
     end
 
     def migrate!
