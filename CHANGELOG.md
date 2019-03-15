@@ -1,3 +1,13 @@
+### 1.4.0
+
+Support for Devise 4.6.
+
+Relax dependency on Devise.
+
+### 1.3.0
+
+Support for Devise 4.5
+
 ### 1.2.0
 
 Adds support for MongoDB.
