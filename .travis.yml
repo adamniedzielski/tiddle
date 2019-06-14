@@ -5,9 +5,9 @@ before_install:
 services:
   - mongodb
 rvm:
-  - "2.3.5"
-  - "2.4.2"
-  - "2.5.0"
+  - "2.4.6"
+  - "2.5.5"
+  - "2.6.3"
 gemfile:
   - "gemfiles/rails4.2.gemfile"
   - "gemfiles/rails5.0.gemfile"
