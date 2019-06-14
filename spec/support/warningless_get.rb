@@ -1,7 +1,9 @@
 def warningless_get(path, headers:)
-  if Gem::Requirement.new(">= 5").match?(Rails.gem_version)
+  # rubocop:disable Performance/RegexpMatch
+  if Gem::Requirement.new(">= 5") =~ Rails.gem_version
     get path, headers: headers
   else
     get path, {}, headers
   end
+  # rubocop:enable Performance/RegexpMatch
 end
