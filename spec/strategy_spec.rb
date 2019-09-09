@@ -38,10 +38,10 @@ describe "Authentication using Tiddle strategy", type: :request do
 
       context "when token was last used less than hour ago" do
         before do
-          @user.authentication_tokens.last.update_attribute(:last_used_at, 30.minutes.ago)
+          @user.authentication_tokens.last.update_attribute(:last_used_at, 10.minutes.ago)
         end
 
-        it "does not update last_used_at field" do
+        it "updates last_used_at field" do
           expect do
             warningless_get(
               secrets_path,
@@ -50,7 +50,7 @@ describe "Authentication using Tiddle strategy", type: :request do
                 "X-USER-TOKEN" => @token
               }
             )
-          end.not_to(change { @user.authentication_tokens.last.last_used_at })
+          end.to(change { @user.reload.authentication_tokens.last.last_used_at })
         end
       end
     end

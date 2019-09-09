@@ -49,7 +49,7 @@ module Devise
       end
 
       def touch_token(token)
-        token.update_attribute(:last_used_at, Time.current) if token.last_used_at < 1.hour.ago
+        token.update_attribute(:last_used_at, Time.current)
       end
 
       def unexpired?(token)
