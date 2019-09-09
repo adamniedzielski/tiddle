@@ -113,3 +113,13 @@ Tokens are expiring after certain period of inactivity. This behavior is optiona
 ```ruby
 token = Tiddle.create_and_return_token(user, request, expires_in: 1.month)
 ```
+
+## Configuration
+
+Tiddle accepts some extra configuration
+
+```ruby
+Tiddle.configure do |config|
+  config.touch_token_interval = 1.hour # How often we will update last_activity_at field on tokens when they are used
+end
+```

@@ -49,7 +49,8 @@ module Devise
       end
 
       def touch_token(token)
-        token.update_attribute(:last_used_at, Time.current)
+        token.update_attribute(:last_used_at, Time.current) if
+          token.last_used_at < Tiddle.configuration.touch_token_interval.ago
       end
 
       def unexpired?(token)

@@ -74,6 +74,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean if defined?(DatabaseCleaner)
   end
 
+  config.after(:each) do
+    Tiddle.reset_configuration
+  end
+
   config.use_transactional_fixtures = true
 
 # The settings below are suggested to provide a good initial experience

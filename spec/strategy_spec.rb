@@ -38,6 +38,25 @@ describe "Authentication using Tiddle strategy", type: :request do
 
       context "when token was last used less than hour ago" do
         before do
+          @user.authentication_tokens.last.update_attribute(:last_used_at, 30.minutes.ago)
+        end
+
+        it "does not update last_used_at field" do
+          expect do
+            warningless_get(
+              secrets_path,
+              headers: {
+                "X-USER-EMAIL" => "test@example.com",
+                "X-USER-TOKEN" => @token
+              }
+            )
+          end.not_to(change { @user.reload.authentication_tokens.last.last_used_at })
+        end
+      end
+
+      context "when using a custom configuration time and token was last used less than hour ago" do
+        before do
+          Tiddle.configuration.touch_token_interval = 5.minutes
           @user.authentication_tokens.last.update_attribute(:last_used_at, 10.minutes.ago)
         end
 
