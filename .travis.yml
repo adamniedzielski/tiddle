@@ -9,10 +9,9 @@ rvm:
   - "2.5.5"
   - "2.6.3"
 gemfile:
-  - "gemfiles/rails4.2.gemfile"
-  - "gemfiles/rails5.0.gemfile"
-  - "gemfiles/rails5.1.gemfile"
-  - "gemfiles/rails5.2.gemfile"
+  - gemfiles/rails4.2.gemfile
+  - gemfiles/rails5.2.gemfile
+  - gemfiles/rails6.0.gemfile
 env:
   - BACKEND=mongoid
   - BACKEND=active_record

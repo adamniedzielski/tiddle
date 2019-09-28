@@ -3,7 +3,8 @@
 source "https://rubygems.org"
 
 gem "rubocop", "~> 0.52.0"
-gem "rails", "~> 5.0.0"
-gem "mongoid", "~> 6"
+gem "rails", "~> 6.0.0"
+gem "mongoid", "~> 7"
+gem "sqlite3"
 
 gemspec path: "../"

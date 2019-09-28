@@ -24,7 +24,12 @@ module Backend
       path = File.expand_path("../rails_app_active_record/db/migrate/", File.dirname(__FILE__))
 
       # rubocop:disable Performance/RegexpMatch
-      if Gem::Requirement.new(">= 5.2.0.rc1") =~ Rails.gem_version
+      if Gem::Requirement.new(">= 6.0.0") =~ Rails.gem_version
+        ActiveRecord::MigrationContext.new(
+          path,
+          ActiveRecord::SchemaMigration
+        ).migrate
+      elsif Gem::Requirement.new(">= 5.2.0") =~ Rails.gem_version
         ActiveRecord::MigrationContext.new(path).migrate
       else
         ActiveRecord::Migrator.migrate(path)
