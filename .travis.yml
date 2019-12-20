@@ -15,3 +15,7 @@ gemfile:
 env:
   - BACKEND=mongoid
   - BACKEND=active_record
+jobs:
+  exclude:
+  - rvm: "2.4.6"
+    gemfile: gemfiles/rails6.0.gemfile
