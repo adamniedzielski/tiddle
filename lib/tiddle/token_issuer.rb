@@ -9,7 +9,7 @@ module Tiddle
     end
 
     def initialize(maximum_tokens_per_user)
-      self.maximum_tokens_per_user = maximum_tokens_per_user
+      @maximum_tokens_per_user = maximum_tokens_per_user
     end
 
     def create_and_return_token(resource, request, expires_in: nil)
@@ -35,7 +35,7 @@ module Tiddle
       resource.authentication_tokens.where(body: token_body).first
     end
 
-    def purge_old_tokens(resource)
+    def purge_old_tokens(resource, maximum_tokens_per_user: @maximum_tokens_per_user)
       resource.authentication_tokens
               .order(last_used_at: :desc)
               .offset(maximum_tokens_per_user)
@@ -43,8 +43,6 @@ module Tiddle
     end
 
     private
-
-    attr_accessor :maximum_tokens_per_user
 
     def authentication_token_class(resource)
       if resource.respond_to?(:association) # ActiveRecord

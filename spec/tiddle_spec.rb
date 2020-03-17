@@ -86,8 +86,16 @@ describe Tiddle do
 
     it "deletes old tokens which are over the limit" do
       expect do
-        Tiddle::TokenIssuer.new(1).purge_old_tokens(@user)
+        Tiddle.purge_old_tokens(@user, maximum_tokens_per_user: 1)
       end.to change { @user.authentication_tokens.count }.from(2).to(1)
+
+      expect(@user.authentication_tokens.last).to eq @new
+    end
+
+    it "keeps tokens when under the limit" do
+      expect do
+        Tiddle.purge_old_tokens(@user, maximum_tokens_per_user: 2)
+      end.not_to(change { @user.authentication_tokens.count }.from(2))
 
       expect(@user.authentication_tokens.last).to eq @new
     end

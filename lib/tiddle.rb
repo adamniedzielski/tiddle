@@ -13,8 +13,8 @@ module Tiddle
     TokenIssuer.build.expire_token(resource, request)
   end
 
-  def self.purge_old_tokens(resource)
-    TokenIssuer.build.purge_old_tokens(resource)
+  def self.purge_old_tokens(resource, maximum_tokens_per_user: TokenIssuer.MAXIMUM_TOKENS_PER_USER)
+    TokenIssuer.build.purge_old_tokens(resource, maximum_tokens_per_user: maximum_tokens_per_user)
   end
 end
 
