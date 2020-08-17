@@ -28,6 +28,14 @@ module Devise
         false
       end
 
+      # Avoid CSRF clean up for token authentication as it might trigger session creation in API
+      # environments even if CSRF prevention is not being used.
+      # Devise provides a `clean_up_csrf_token_on_authentication` option but it's not always viable
+      # in applications with multiple user models and authentication strategies.
+      def clean_up_csrf?
+        false
+      end
+
       private
 
       def authentication_keys_from_headers
