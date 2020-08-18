@@ -1,3 +1,11 @@
+### 1.5.0
+
+Add Rails 6 support
+
+Fix warning on Ruby 2.7 (Andy Klimczak)
+
+Skip CSRF clean up (Marcelo Silveira)
+
 ### 1.4.0
 
 Support for Devise 4.6.
