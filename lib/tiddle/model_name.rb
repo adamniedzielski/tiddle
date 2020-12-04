@@ -1,7 +1,7 @@
 module Tiddle
   class ModelName
     def with_underscores(model)
-      model.model_name.to_s.underscore.upcase
+      model.model_name.to_s.underscore.tr('/', '_').upcase
     end
 
     def with_dashes(model)
