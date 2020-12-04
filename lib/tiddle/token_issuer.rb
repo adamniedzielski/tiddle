@@ -24,7 +24,7 @@ module Tiddle
     end
 
     def expire_token(resource, request)
-      find_token(resource, request.headers["X-#{ModelName.new.with_dashes(resource)}-TOKEN"])
+      find_token(resource, request.headers[token_header_for(resource)])
         .try(:destroy)
     end
 
@@ -69,6 +69,10 @@ module Tiddle
       else
         attributes
       end
+    end
+
+    def token_header_for(resource)
+      "HTTP_X_#{Tiddle::ModelName.new.with_underscores(resource)}_TOKEN"
     end
   end
 end
