@@ -8,7 +8,22 @@ on:
 
 jobs:
   test:
+    strategy:
+      fail-fast: false
+      matrix:
+        gemfile:
+          - rails4.2
+          - rails5.2
+          - rails6.0
+        ruby:
+          - 2.4
+          - 2.5
+          - 2.6
+          - 2.7
+    name: ${{ matrix.gemfile }}, ruby ${{ matrix.ruby }}
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
 
     services:
       postgres:
@@ -23,17 +38,7 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
-        ruby-version: "2.7.1"
-    - name: Install dependencies
-      run: |
-        bundle install
-    - name: Run Rubocop
-      run: |
-        bundle exec rubocop
+        ruby-version: ${{ matrix.ruby }}
     - name: Run tests
-      env:
-        PGHOST: localhost
-        PGUSER: postgres
-        RAILS_ENV: test
       run: |
-        bundle exec appraisal rails6.0 rake spec
+        bundle exec rake
