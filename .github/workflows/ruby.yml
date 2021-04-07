@@ -36,4 +36,4 @@ jobs:
         PGUSER: postgres
         RAILS_ENV: test
       run: |
-        bundle exec rake spec
+        bundle exec appraisal rails6.0 rake spec
