@@ -20,6 +20,9 @@ jobs:
           - 2.5
           - 2.6
           - 2.7
+        backend:
+          - active_record
+          - mongoid
         exclude:
           - gemfile: rails6.0
             ruby: 2.4
@@ -27,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
+      BACKEND: ${{ matrix.backend }}
 
     steps:
     - uses: actions/checkout@v2
@@ -35,6 +39,8 @@ jobs:
       with:
         bundler-cache: true
         ruby-version: ${{ matrix.ruby }}
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.3.0
     - name: Run tests
       run: |
         bundle exec rake spec
