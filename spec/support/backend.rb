@@ -43,7 +43,7 @@ module Backend
       require 'mongoid'
       require 'devise/orm/mongoid'
       require 'rails_app_mongoid/config/environment'
-      require 'database_cleaner/core'
+      require 'database_cleaner-core'
     end
 
     def setup_database_cleaner
