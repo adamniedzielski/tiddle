@@ -43,12 +43,11 @@ module Backend
       require 'mongoid'
       require 'devise/orm/mongoid'
       require 'rails_app_mongoid/config/environment'
-      require 'database_cleaner'
+      require 'database_cleaner-mongoid'
     end
 
     def setup_database_cleaner
       DatabaseCleaner.allow_remote_database_url = true
-      DatabaseCleaner[:mongoid].strategy = :truncation
     end
 
     def migrate!

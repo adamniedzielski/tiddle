@@ -6,6 +6,7 @@ AllCops:
   Exclude:
     - 'spec/rails_app/**/*'
     - 'spec/spec_helper.rb'
+    - 'vendor/bundle/**/*'
 Style/StringLiterals:
   Enabled: false
 Style/Documentation:
