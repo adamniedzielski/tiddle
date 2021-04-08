@@ -20,6 +20,9 @@ jobs:
           - 2.5
           - 2.6
           - 2.7
+        exclude:
+          - gemfile: rails6.0
+            ruby: 2.4
     name: ${{ matrix.gemfile }}, ruby ${{ matrix.ruby }}
     runs-on: ubuntu-latest
     env:
