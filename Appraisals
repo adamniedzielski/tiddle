@@ -9,3 +9,9 @@ appraise "rails6.0" do
   gem "mongoid", "~> 7"
   gem "sqlite3"
 end
+
+appraise "rails6.1" do
+  gem "rails", "~> 6.1.0"
+  gem "mongoid"
+  gem "sqlite3"
+end
