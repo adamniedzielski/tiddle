@@ -1,6 +1,5 @@
 # Tiddle
 
-[![Build Status](https://travis-ci.org/adamniedzielski/tiddle.svg?branch=master)](https://travis-ci.org/adamniedzielski/tiddle)
 [![Coverage Status](https://coveralls.io/repos/adamniedzielski/tiddle/badge.svg?branch=master)](https://coveralls.io/r/adamniedzielski/tiddle?branch=master)
 [![Code Climate](https://codeclimate.com/github/adamniedzielski/tiddle/badges/gpa.svg)](https://codeclimate.com/github/adamniedzielski/tiddle)
 

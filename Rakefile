@@ -6,7 +6,7 @@ require 'appraisal'
 RSpec::Core::RakeTask.new(spec: :rubocop)
 RuboCop::RakeTask.new(:rubocop)
 
-if !ENV["APPRAISAL_INITIALIZED"] && !ENV["TRAVIS"]
+if !ENV["APPRAISAL_INITIALIZED"]
   task default: :appraisal
 else
   task default: :spec
