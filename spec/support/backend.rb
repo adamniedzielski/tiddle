@@ -29,10 +29,8 @@ module Backend
           path,
           ActiveRecord::SchemaMigration
         ).migrate
-      elsif Gem::Requirement.new(">= 5.2.0") =~ Rails.gem_version
-        ActiveRecord::MigrationContext.new(path).migrate
       else
-        ActiveRecord::Migrator.migrate(path)
+        ActiveRecord::MigrationContext.new(path).migrate
       end
       # rubocop:enable Performance/RegexpMatch
     end
