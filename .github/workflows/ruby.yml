@@ -18,9 +18,13 @@ jobs:
           - 2.5
           - 2.6
           - 2.7
+          - 3.0
         backend:
           - active_record
           - mongoid
+        exclude:
+          - gemfile: rails5.2
+            ruby: 3.0
     name: ${{ matrix.gemfile }}, ruby ${{ matrix.ruby }}, ${{ matrix.backend }}
     runs-on: ubuntu-latest
     env:
