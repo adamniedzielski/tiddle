@@ -1,10 +1,4 @@
-migration_class = if Rails::VERSION::MAJOR > 4
-                    ActiveRecord::Migration[4.2]
-                  else
-                    ActiveRecord::Migration
-                  end
-
-class CreateTables < migration_class
+class CreateTables < ActiveRecord::Migration[4.2]
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
   def change
