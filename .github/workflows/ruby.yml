@@ -15,16 +15,12 @@ jobs:
           - rails5.2
           - rails6.0
         ruby:
-          - 2.4
           - 2.5
           - 2.6
           - 2.7
         backend:
           - active_record
           - mongoid
-        exclude:
-          - gemfile: rails6.0
-            ruby: 2.4
     name: ${{ matrix.gemfile }}, ruby ${{ matrix.ruby }}, ${{ matrix.backend }}
     runs-on: ubuntu-latest
     env:
