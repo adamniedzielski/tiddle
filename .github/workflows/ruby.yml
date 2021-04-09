@@ -12,7 +12,6 @@ jobs:
       fail-fast: false
       matrix:
         gemfile:
-          - rails4.2
           - rails5.2
           - rails6.0
         ruby:
