@@ -181,7 +181,7 @@ describe "Authentication using Tiddle strategy", type: :request do
 
     describe "token is expired" do
       before do
-        token = @user.authentication_tokens.sort_by(&:id).last
+        token = @user.authentication_tokens.max_by(&:id)
         token.update_attribute(:last_used_at, 1.month.ago)
       end
 

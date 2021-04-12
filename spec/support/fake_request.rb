@@ -9,7 +9,5 @@ class FakeRequest
     self.headers = headers
   end
 
-  attr_accessor :remote_ip
-  attr_accessor :user_agent
-  attr_accessor :headers
+  attr_accessor :remote_ip, :user_agent, :headers
 end
