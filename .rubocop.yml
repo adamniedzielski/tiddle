@@ -1,12 +1,12 @@
 AllCops:
   TargetRubyVersion: 2.5
   Include:
-    - 'lib'
-    - 'spec'
+    - 'lib/**/*.rb'
+    - 'spec/**/*.rb'
   Exclude:
     - 'spec/rails_app/**/*'
     - 'spec/spec_helper.rb'
-    - 'vendor/bundle/**/*'
+  SuggestExtensions: false
 Style/StringLiterals:
   Enabled: false
 Style/Documentation:
@@ -15,17 +15,73 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/SignalException:
   Enabled: false
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
 Gemspec/OrderedDependencies:
   Enabled: false
-Naming/FileName:
-  Exclude:
-    - 'Rakefile'
-    - 'Gemfile'
-    - 'Appraisals'
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 Metrics/MethodLength:
   Max: 15
+
+Gemspec/DateAssignment:
+  Enabled: true
+Layout/SpaceBeforeBrackets:
+  Enabled: true
+Lint/AmbiguousAssignment:
+  Enabled: true
+Lint/DeprecatedConstants:
+  Enabled: true
+Lint/DuplicateBranch:
+  Enabled: true
+Lint/DuplicateRegexpCharacterClassElement:
+  Enabled: true
+Lint/EmptyBlock:
+  Enabled: true
+Lint/EmptyClass:
+  Enabled: true
+Lint/LambdaWithoutLiteralBlock:
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks:
+  Enabled: true
+Lint/NumberedParameterAssignment:
+  Enabled: true
+Lint/OrAssignmentToConstant:
+  Enabled: true
+Lint/RedundantDirGlobSort:
+  Enabled: true
+Lint/SymbolConversion:
+  Enabled: true
+Lint/ToEnumArguments:
+  Enabled: true
+Lint/TripleQuotes:
+  Enabled: true
+Lint/UnexpectedBlockArity:
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator:
+  Enabled: true
+Style/ArgumentsForwarding:
+  Enabled: true
+Style/CollectionCompact:
+  Enabled: true
+Style/DocumentDynamicEvalDefinition:
+  Enabled: true
+Style/EndlessMethod:
+  Enabled: true
+Style/HashConversion:
+  Enabled: true
+Style/HashExcept:
+  Enabled: true
+Style/IfWithBooleanLiteralBranches:
+  Enabled: true
+Style/NegatedIfElseCondition:
+  Enabled: true
+Style/NilLambda:
+  Enabled: true
+Style/RedundantArgument:
+  Enabled: true
+Style/StringChars:
+  Enabled: true
+Style/SwapValues:
+  Enabled: true
