@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency "appraisal"
-  spec.add_development_dependency "coveralls"
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "database_cleaner-active_record"
