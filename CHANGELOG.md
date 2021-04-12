@@ -1,3 +1,14 @@
+### 1.6.0
+
+Add Rails 6.1 support
+
+Add Ruby 3.0 support
+
+Remove Rails 4.2 support
+
+Remove Ruby 2.4 support
+
+
 ### 1.5.0
 
 Add Rails 6 support
