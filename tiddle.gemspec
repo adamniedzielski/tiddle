@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "devise", ">= 4.0.0.rc1", "< 5"
   spec.add_dependency "activerecord", ">= 5.2.0"
-  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency "appraisal"
   spec.add_development_dependency "simplecov"
