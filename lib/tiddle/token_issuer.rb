@@ -12,12 +12,12 @@ module Tiddle
       self.maximum_tokens_per_user = maximum_tokens_per_user
     end
 
-    def create_and_return_token(resource, request, expires_in: nil)
+    def create_and_return_token(resource, request, expires_in: nil, metadata: {})
       token_class = authentication_token_class(resource)
       token, token_body = Devise.token_generator.generate(token_class, :body)
 
       resource.authentication_tokens.create!(
-        token_attributes(token_body, request, expires_in)
+        token_attributes(token_body, request, expires_in, metadata: metadata)
       )
 
       token
@@ -56,13 +56,13 @@ module Tiddle
       end
     end
 
-    def token_attributes(token_body, request, expires_in)
+    def token_attributes(token_body, request, expires_in, metadata: {})
       attributes = {
         body: token_body,
         last_used_at: Time.current,
         ip_address: request.remote_ip,
         user_agent: request.user_agent
-      }
+      }.merge(metadata)
 
       if expires_in
         attributes.merge(expires_in: expires_in)
