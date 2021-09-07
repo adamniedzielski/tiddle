@@ -5,7 +5,7 @@ class User
          :registerable,
          :recoverable,
          :trackable,
-         #:validatable Triggers callback to will_save_change_to_email?, fails with mongoid
+         :validatable,
          :token_authenticatable
 
   has_many :authentication_tokens
