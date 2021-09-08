@@ -17,7 +17,12 @@ module Tiddle
       token, token_body = Devise.token_generator.generate(token_class, :body)
 
       resource.authentication_tokens.create!(
-        token_attributes(token_body, request, expires_in, metadata: metadata)
+        token_attributes(
+          token_body: token_body,
+          request: request,
+          expires_in: expires_in,
+          metadata: metadata
+        )
       )
 
       token
@@ -56,7 +61,7 @@ module Tiddle
       end
     end
 
-    def token_attributes(token_body, request, expires_in, metadata: {})
+    def token_attributes(token_body:, request:, expires_in:, metadata: {})
       attributes = {
         body: token_body,
         last_used_at: Time.current,
