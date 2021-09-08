@@ -38,6 +38,11 @@ describe Tiddle do
                                      FakeRequest.new(user_agent: "Internet Explorer 4.0")
       expect(@user.authentication_tokens.last.user_agent).to eq "Internet Explorer 4.0"
     end
+
+    it "saves additional metadata" do
+      Tiddle.create_and_return_token @user, FakeRequest.new, metadata: { metadata_attr1: "abc" }
+      expect(@user.authentication_tokens.last.metadata_attr1).to eq "abc"
+    end
   end
 
   describe "find_token" do

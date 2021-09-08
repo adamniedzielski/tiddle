@@ -55,6 +55,7 @@ class CreateTables < ActiveRecord::Migration[4.2]
       t.integer :expires_in, null: false, default: 0
       t.string :ip_address
       t.string :user_agent
+      t.string :metadata_attr1
 
       t.timestamps null: false
     end
