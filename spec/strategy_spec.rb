@@ -130,6 +130,27 @@ describe "Authentication using Tiddle strategy", type: :request do
     end
   end
 
+  context "when the model name is composed of a namespace" do
+    before do
+      @user = Namespace::NamespacedUser.create!(
+        email: "test@example.com",
+        password: "12345678"
+      )
+      @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
+    end
+
+    it "allows to access endpoints which require authentication" do
+      get(
+        namespaced_users_path,
+        headers: {
+          "X-NAMESPACE--NAMESPACED-USER-EMAIL" => "test@example.com",
+          "X-NAMESPACE--NAMESPACED-USER-TOKEN" => @token
+        }
+      )
+      expect(response.status).to eq 200
+    end
+  end
+
   describe "using field other than email" do
     before do
       Devise.setup do |config|
