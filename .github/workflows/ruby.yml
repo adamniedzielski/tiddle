@@ -16,7 +16,6 @@ jobs:
           - rails6.0
           - rails6.1
         ruby:
-          - "2.6"
           - "2.7"
           - "3.0"
         backend:
