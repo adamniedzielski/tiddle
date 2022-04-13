@@ -4,8 +4,7 @@
 2. Run the tests:
 
   ```
-  appraisal install
-  rake
+  BUNDLE_GEMFILE=gemfiles/<PICK YOUR FAVOURITE>.gemfile rake
   ```
 3. Introduce your change. If it's a new feature then write a test for it as well.
 4. Make sure that tests are passing.
