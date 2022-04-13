@@ -1,7 +1,5 @@
 # Tiddle
 
-[![Code Climate](https://codeclimate.com/github/adamniedzielski/tiddle/badges/gpa.svg)](https://codeclimate.com/github/adamniedzielski/tiddle)
-
 Tiddle provides Devise strategy for token authentication in API-only Ruby on Rails applications. Its main feature is **support for multiple tokens per user**.
 
 Tiddle is lightweight and non-configurable. It does what it has to do and leaves some manual implementation to you.
@@ -83,7 +81,7 @@ end
 
 5) Send ```X-USER-EMAIL``` and ```X-USER-TOKEN``` as headers of every request which requires authentication.
 
-You can read more in a blog post dedicated to Tiddle - http://adamniedzielski.github.io/blog/2015/04/04/token-authentication-with-tiddle/
+You can read more in a blog post dedicated to Tiddle - https://blog.sundaycoding.com/blog/2015/04/04/token-authentication-with-tiddle/
 
 ## Note on Rails session
 
@@ -93,7 +91,7 @@ The safest solution in API-only application is not to rely on Rails session at a
 config.middleware.delete ActionDispatch::Session::CookieStore
 ```
 
-More: http://adamniedzielski.github.io/blog/2015/04/04/token-authentication-with-tiddle/#rails-session
+More: https://blog.sundaycoding.com/blog/2015/04/04/token-authentication-with-tiddle/#rails-session
 
 ## Using field other than email
 
