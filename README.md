@@ -1,7 +1,5 @@
 # Tiddle
 
-[![Code Climate](https://codeclimate.com/github/adamniedzielski/tiddle/badges/gpa.svg)](https://codeclimate.com/github/adamniedzielski/tiddle)
-
 Tiddle provides Devise strategy for token authentication in API-only Ruby on Rails applications. Its main feature is **support for multiple tokens per user**.
 
 Tiddle is lightweight and non-configurable. It does what it has to do and leaves some manual implementation to you.
