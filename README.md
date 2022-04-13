@@ -81,7 +81,7 @@ end
 
 5) Send ```X-USER-EMAIL``` and ```X-USER-TOKEN``` as headers of every request which requires authentication.
 
-You can read more in a blog post dedicated to Tiddle - http://adamniedzielski.github.io/blog/2015/04/04/token-authentication-with-tiddle/
+You can read more in a blog post dedicated to Tiddle - https://blog.sundaycoding.com/blog/2015/04/04/token-authentication-with-tiddle/
 
 ## Note on Rails session
 
@@ -91,7 +91,7 @@ The safest solution in API-only application is not to rely on Rails session at a
 config.middleware.delete ActionDispatch::Session::CookieStore
 ```
 
-More: http://adamniedzielski.github.io/blog/2015/04/04/token-authentication-with-tiddle/#rails-session
+More: https://blog.sundaycoding.com/blog/2015/04/04/token-authentication-with-tiddle/#rails-session
 
 ## Using field other than email
 
