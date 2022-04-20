@@ -1,3 +1,13 @@
+### 1.7.1
+
+Fix invalid headers generated when model is namespaced (Ariel Agne da Silveira)
+
+Add Rails 7.0 support
+
+Add Ruby 3.1 support
+
+Remove Ruby 2.6 support
+
 ### 1.7.0
 
 Add ability to track additional info in tokens (Marcelo Silveira)
