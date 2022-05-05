@@ -1,4 +1,4 @@
-.PHONY: build bundle test bash
+.PHONY: build bundle test bash cleanup
 
 build:
 	docker-compose build
