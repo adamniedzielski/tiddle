@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  library:
+    build:
+      context: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - ".:/library"
+      - vendor:/vendor
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379/1
+      - BUNDLE_GEMFILE=gemfiles/rails7.0.gemfile
+  redis:
+    image: "redis:6-alpine"
+    command: redis-server
+    volumes:
+      - "redis:/data"
+volumes:
+  vendor:
+  redis:
