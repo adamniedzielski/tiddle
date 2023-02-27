@@ -246,7 +246,7 @@ describe "Authentication using Tiddle strategy", type: :request do
           @user.authentication_tokens.last.update_attribute(:last_used_at, 1.minute.ago)
         end
 
-        it "does not update last_used_at field" do
+        it "updates last_used_at field" do
           expect do
             get(
               secrets_path,
