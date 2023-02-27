@@ -217,5 +217,47 @@ describe "Authentication using Tiddle strategy", type: :request do
         expect(response.status).to eq 401
       end
     end
+
+    context "with value lower than 2 hours" do
+      before do
+        @token = Tiddle.create_and_return_token(@user, FakeRequest.new, expires_in: 1.hour)
+      end
+
+      context "when token was last used less than minute ago" do
+        before do
+          @user.authentication_tokens.last.update_attribute(:last_used_at, 30.seconds.ago)
+        end
+
+        it "does not update last_used_at field" do
+          expect do
+            get(
+              secrets_path,
+              headers: {
+                "X-USER-EMAIL" => "test@example.com",
+                "X-USER-TOKEN" => @token
+              }
+            )
+          end.not_to(change { @user.authentication_tokens.last.last_used_at })
+        end
+      end
+
+      context "when token was last used a minute ago" do
+        before do
+          @user.authentication_tokens.last.update_attribute(:last_used_at, 1.minute.ago)
+        end
+
+        it "does not update last_used_at field" do
+          expect do
+            get(
+              secrets_path,
+              headers: {
+                "X-USER-EMAIL" => "test@example.com",
+                "X-USER-TOKEN" => @token
+              }
+            )
+          end.to(change { @user.authentication_tokens.last.last_used_at })
+        end
+      end
+    end
   end
 end
