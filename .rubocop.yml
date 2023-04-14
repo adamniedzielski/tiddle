@@ -26,7 +26,7 @@ Metrics/BlockLength:
 Metrics/MethodLength:
   Max: 15
 
-Gemspec/DateAssignment:
+Gemspec/DeprecatedAttributeAssignment:
   Enabled: true
 Layout/SpaceBeforeBrackets:
   Enabled: true
