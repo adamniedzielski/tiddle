@@ -217,5 +217,89 @@ describe "Authentication using Tiddle strategy", type: :request do
         expect(response.status).to eq 401
       end
     end
+
+    context "with value lower than 24 hours" do
+      before do
+        @token = Tiddle.create_and_return_token(@user, FakeRequest.new, expires_in: 1.hour)
+      end
+
+      context "and token was last used a minute ago" do
+        before do
+          @user.authentication_tokens.last.update_attribute(:last_used_at, 1.minute.ago)
+        end
+
+        it "does not update last_used_at field" do
+          expect do
+            get(
+              secrets_path,
+              headers: {
+                "X-USER-EMAIL" => "test@example.com",
+                "X-USER-TOKEN" => @token
+              }
+            )
+          end.not_to(change { @user.authentication_tokens.last.reload.last_used_at })
+        end
+      end
+
+      context "and token was last used 5 minutes ago" do
+        before do
+          @user.authentication_tokens.last.update_attribute(:last_used_at, 5.minute.ago)
+        end
+
+        it "updates last_used_at field" do
+          expect do
+            get(
+              secrets_path,
+              headers: {
+                "X-USER-EMAIL" => "test@example.com",
+                "X-USER-TOKEN" => @token
+              }
+            )
+          end.to(change { @user.authentication_tokens.last.reload.last_used_at })
+        end
+      end
+    end
+
+    context "with value lower than 1 hour" do
+      before do
+        @token = Tiddle.create_and_return_token(@user, FakeRequest.new, expires_in: 30.minutes)
+      end
+
+      context "and token was last used less than a minute ago" do
+        before do
+          @user.authentication_tokens.last.update_attribute(:last_used_at, 30.seconds.ago)
+        end
+
+        it "does not update last_used_at field" do
+          expect do
+            get(
+              secrets_path,
+              headers: {
+                "X-USER-EMAIL" => "test@example.com",
+                "X-USER-TOKEN" => @token
+              }
+            )
+          end.not_to(change { @user.authentication_tokens.last.reload.last_used_at })
+        end
+      end
+
+      context "and token was last used a minute ago" do
+        before do
+          @user.authentication_tokens.last.update_attribute(:last_used_at, 1.minute.ago)
+        end
+
+        it "updates last_used_at field" do
+          expect do
+            get(
+              secrets_path,
+              headers: {
+                "X-USER-EMAIL" => "test@example.com",
+                "X-USER-TOKEN" => @token
+              }
+            )
+          end.to(change { @user.authentication_tokens.last.reload.last_used_at })
+        end
+      end
+    end
   end
 end
