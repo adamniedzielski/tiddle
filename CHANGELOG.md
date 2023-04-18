@@ -1,3 +1,7 @@
+### 1.8.0
+
+Support different touch interval based on expiration time (Daniel André da Silva)
+
 ### 1.7.1
 
 Fix invalid headers generated when model is namespaced (Ariel Agne da Silveira)
