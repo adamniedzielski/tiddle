@@ -57,14 +57,29 @@ module Devise
       end
 
       def touch_token(token)
-        token.update_attribute(:last_used_at, Time.current) if token.last_used_at < 1.hour.ago
+        return unless token.last_used_at < touch_token_interval(token).ago
+
+        token.update_attribute(:last_used_at, Time.current)
       end
 
       def unexpired?(token)
-        return true unless token.respond_to?(:expires_in)
-        return true if token.expires_in.blank? || token.expires_in.zero?
+        return true if expiration_disabled?(token)
 
         Time.current <= token.last_used_at + token.expires_in
+      end
+
+      def touch_token_interval(token)
+        return 1.hour if expiration_disabled?(token) || token.expires_in >= 24.hours
+
+        return 5.minutes if token.expires_in >= 1.hour
+
+        1.minute
+      end
+
+      def expiration_disabled?(token)
+        !token.respond_to?(:expires_in) ||
+          token.expires_in.blank? ||
+          token.expires_in.zero?
       end
     end
   end
