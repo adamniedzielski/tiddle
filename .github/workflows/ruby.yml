@@ -14,6 +14,7 @@ jobs:
         gemfile:
           - rails6.1
           - rails7.0
+          - rails7.1
         ruby:
           - "3.0"
           - "3.1"
