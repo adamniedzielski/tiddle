@@ -16,10 +16,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '>= 2.7.0'
+  spec.required_ruby_version = '>= 3.0.0'
 
   spec.add_dependency "devise", ">= 4.0.0.rc1", "< 5"
-  spec.add_dependency "activerecord", ">= 5.2.0"
+  spec.add_dependency "activerecord", ">= 6.1.0"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency "simplecov"
