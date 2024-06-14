@@ -1,4 +1,4 @@
-FROM ruby:3.1-alpine
+FROM ruby:3.3-alpine
 
 RUN apk add build-base sqlite-dev tzdata git bash
 RUN gem update --system && gem install bundler
