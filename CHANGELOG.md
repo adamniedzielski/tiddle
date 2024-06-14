@@ -1,3 +1,13 @@
+### 1.8.1
+
+Remove Rails 5.2 and 6.0 support
+
+Remove Ruby 2.7 support
+
+Add Rails 7.1 support
+
+Add Ruby 3.2 and 3.3 support
+
 ### 1.8.0
 
 Support different touch interval based on expiration time (Daniel André da Silva)
