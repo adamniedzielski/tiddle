@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   library:
+    platform: linux/x86_64
     build:
       context: .
     stdin_open: true
@@ -12,7 +13,7 @@ services:
       - redis
     environment:
       - REDIS_URL=redis://redis:6379/1
-      - BUNDLE_GEMFILE=gemfiles/rails7.0.gemfile
+      - BUNDLE_GEMFILE=gemfiles/rails7.1.gemfile
   redis:
     image: "redis:6-alpine"
     command: redis-server

@@ -23,14 +23,10 @@ module Backend
       # Do initial migration
       path = File.expand_path("../rails_app_active_record/db/migrate/", File.dirname(__FILE__))
 
-      if Gem::Requirement.new(">= 6.0.0") =~ Rails.gem_version
-        ActiveRecord::MigrationContext.new(
-          path,
-          ActiveRecord::SchemaMigration
-        ).migrate
-      else
-        ActiveRecord::MigrationContext.new(path).migrate
-      end
+      ActiveRecord::MigrationContext.new(
+        path,
+        ActiveRecord::SchemaMigration
+      ).migrate
     end
   end
 
