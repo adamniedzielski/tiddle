@@ -1,3 +1,14 @@
+### 1.9.0
+Remove Rails 6.1, 7.0 and 7.1 support
+
+Remove Ruby 3.0, 3.1 and 3.2 support
+
+Add Rails 7.2, 8.0 and 8.1 support
+
+Add Ruby 3.4 and 4.0 support
+
+Support Devise config.authentication_keys in hash format
+
 ### 1.8.1
 
 Remove Rails 5.2 and 6.0 support
