@@ -1,0 +1,8 @@
+source "https://rubygems.org"
+
+gem "rubocop", "~> 1.88"
+gem "rails", "~> 8.1.0"
+gem "mongoid", "~> 9"
+gem "sqlite3"
+
+gemspec path: "../"

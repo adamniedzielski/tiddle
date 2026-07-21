@@ -1,4 +1,4 @@
-class CreateTables < ActiveRecord::Migration[4.2]
+class CreateTables < ActiveRecord::Migration::Current
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
   def change
