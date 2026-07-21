@@ -181,6 +181,35 @@ describe "Authentication using Tiddle strategy", type: :request do
     end
   end
 
+  describe "when authentication_keys is a hash" do
+    before do
+      Devise.setup do |config|
+        config.authentication_keys = { email: true }
+      end
+
+      @user = User.create!(
+        email: "test@example.com",
+        password: "12345678"
+      )
+      @token = Tiddle.create_and_return_token(@user, FakeRequest.new)
+    end
+
+    after do
+      Devise.setup do |config|
+        config.authentication_keys = [:email]
+      end
+    end
+
+    it "allows to access endpoints which require authentication with valid \
+      nick name and token" do
+      get(
+        secrets_path,
+        headers: { "X-USER-EMAIL" => "test@example.com", "X-USER-TOKEN" => @token }
+      )
+      expect(response.status).to eq 200
+    end
+  end
+
   context "when token has expires_in set up" do
     before do
       @user = User.create!(email: "test@example.com", password: "12345678")
