@@ -23,10 +23,11 @@ module Backend
       # Do initial migration
       path = File.expand_path("../rails_app_active_record/db/migrate/", File.dirname(__FILE__))
 
-      ActiveRecord::MigrationContext.new(
-        path,
-        ActiveRecord::SchemaMigration
-      ).migrate
+      schema_migration = ::ActiveRecord::SchemaMigration.new(
+        ActiveRecord::Tasks::DatabaseTasks.migration_connection_pool
+      )
+
+      ::ActiveRecord::MigrationContext.new(path, schema_migration).migrate
     end
   end
 

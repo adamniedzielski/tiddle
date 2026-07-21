@@ -6,6 +6,8 @@
 /doc/
 /pkg/
 /spec/reports/
+/spec/rails_app_active_record/tmp/
+/spec/rails_app_mongoid/tmp/
 /tmp/
 *.bundle
 *.so

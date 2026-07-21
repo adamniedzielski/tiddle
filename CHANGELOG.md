@@ -1,3 +1,11 @@
+### [Unreleased]
+
+Minimum supported ruby version is now 3.3
+
+Minimum supported Rails version is now 7.2
+
+Relax devise dependency to >= 4, < 6, thus supporting devise 5
+
 ### 1.8.1
 
 Remove Rails 5.2 and 6.0 support

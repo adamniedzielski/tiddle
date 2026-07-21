@@ -16,14 +16,16 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = '>= 3.0.0'
+  spec.required_ruby_version = '>= 3.3.0'
 
-  spec.add_dependency "devise", ">= 4.0.0.rc1", "< 6"
-  spec.add_dependency "activerecord", ">= 6.1.0"
-  spec.add_development_dependency "rake"
+  spec.add_dependency "devise", ">= 4.7", "< 6"
+  spec.add_dependency "activerecord", ">= 7.2.0"
+  spec.add_development_dependency "rake", "~> 13"
   spec.add_development_dependency "rspec-rails"
   spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "appraisal"
   spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "database_cleaner"
   spec.add_development_dependency "database_cleaner-active_record"
   spec.add_development_dependency "database_cleaner-mongoid"
 end
