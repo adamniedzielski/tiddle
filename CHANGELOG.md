@@ -1,10 +1,12 @@
-### [Unreleased]
+### 1.9.0
 
-Minimum supported ruby version is now 3.3
+Minimum supported ruby version is now 3.3 (André Piske)
 
-Minimum supported Rails version is now 7.2
+Minimum supported Rails version is now 7.2 (André Piske)
 
-Relax devise dependency to >= 4, < 6, thus supporting devise 5
+Relax devise dependency to >= 4, < 6, thus supporting devise 5 (André Piske)
+
+Support Devise config.authentication_keys in hash format (Arek W)
 
 ### 1.8.1
 
